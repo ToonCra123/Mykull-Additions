@@ -1,5 +1,7 @@
 package net.mykull.mykulladditions;
 
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -36,20 +38,23 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 
 // The value here should match an entry in the META-INF/neoforge.mods.toml file
 @Mod(MykullsAdditions.MODID)
-public class MykullsAdditions
-{
+public class MykullsAdditions {
     public static final String MODID = "mykullsadditions";
     private static final Logger LOGGER = LogUtils.getLogger();
 
-    public MykullsAdditions(IEventBus modEventBus, ModContainer modContainer)
-    {
+    public MykullsAdditions(IEventBus modEventBus, ModContainer modContainer) {
+        // Loads Blocks, Items, BE and Creative Tabs
         Registration.init(modEventBus);
 
         modEventBus.addListener(this::commonSetup);
+        modEventBus.addListener(this::registerCapabilities);
     }
 
-    private void commonSetup(final FMLCommonSetupEvent event)
-    {
+    private void registerCapabilities(RegisterCapabilitiesEvent event) {
+        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, Registration.COMPLEX_BLOCK_ENTITY.get(), (o, direction) -> o.getItemHandler());
+    }
+
+    private void commonSetup(final FMLCommonSetupEvent event) {
         LOGGER.info("HELLO FROM COMMON SETUP");
     }
 }
