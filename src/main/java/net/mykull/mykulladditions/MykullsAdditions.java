@@ -1,5 +1,6 @@
 package net.mykull.mykulladditions;
 
+import net.mykull.mykulladditions.compat.TopCompatibility;
 import net.mykull.mykulladditions.datagen.DataGeneration;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
@@ -16,7 +17,7 @@ import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 @Mod(MykullsAdditions.MODID)
 public class MykullsAdditions {
     public static final String MODID = "mykullsadditions";
-    private static final Logger LOGGER = LogUtils.getLogger();
+    public static final Logger LOGGER = LogUtils.getLogger();
 
     public MykullsAdditions(IEventBus modEventBus, ModContainer modContainer) {
         // Loads Blocks, Items, BE and Creative Tabs
@@ -29,10 +30,13 @@ public class MykullsAdditions {
 
     private void registerCapabilities(RegisterCapabilitiesEvent event) {
         event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, Registration.COMPLEX_BLOCK_ENTITY.get(), (o, direction) -> o.getItemHandler());
+        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, Registration.GENERATOR_BLOCK_ENTITY.get(), (o, direction) -> o.getItemHandler());
+        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, Registration.GENERATOR_BLOCK_ENTITY.get(), (o, direction) -> o.getEnergyHandler());
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
         LOGGER.info("HELLO FROM COMMON SETUP");
+        TopCompatibility.register();
     }
 
 
