@@ -8,7 +8,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.mykull.mykulladditions.Registration;
 import net.mykull.mykulladditions.common.blockentities.ComplexBlockEntity;
 import org.jetbrains.annotations.Nullable;
 

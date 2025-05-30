@@ -1,5 +1,7 @@
 {
   "itemGroup.mykullsadditions": "Example Mod Tab",
   "block.mykullsadditions.example_block": "Example Block",
-  "item.mykullsadditions.example_item": "Example Item"
+  "item.mykullsadditions.example_item": "Example Item",
+  "block.mykullsadditions.complex_block": "Complex Block",
+  "block.mykullsadditions.simple_block": "Simple Block"
 }
