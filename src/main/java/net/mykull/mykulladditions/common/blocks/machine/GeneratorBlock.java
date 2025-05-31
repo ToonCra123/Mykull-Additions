@@ -23,7 +23,7 @@ import net.mykull.mykulladditions.common.containers.GeneratorContainer;
 import org.jetbrains.annotations.Nullable;
 
 public class GeneratorBlock extends Block implements EntityBlock {
-    public static final String SCREEN_TUTORIAL_GENERATOR = "tutorial.screen.generator";
+    public static final String SCREEN_TUTORIAL_GENERATOR = "mykullsadditions.screen.generator";
 
     public GeneratorBlock(Properties properties) {
         super(properties);

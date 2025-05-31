@@ -3,5 +3,6 @@
   "block.mykullsadditions.example_block": "Example Block",
   "item.mykullsadditions.example_item": "Example Item",
   "block.mykullsadditions.complex_block": "Complex Block",
-  "block.mykullsadditions.simple_block": "Simple Block"
+  "block.mykullsadditions.simple_block": "Simple Block",
+  "mykullsadditions.screen.generator": "Generator"
 }

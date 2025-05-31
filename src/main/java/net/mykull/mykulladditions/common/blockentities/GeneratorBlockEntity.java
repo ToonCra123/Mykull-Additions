@@ -50,7 +50,7 @@ public class GeneratorBlockEntity extends BlockEntity {
 
         @Override
         public boolean canExtract() {
-            return false;
+            return true;
         }
 
         @Override
@@ -104,12 +104,11 @@ public class GeneratorBlockEntity extends BlockEntity {
     }
 
     private void distributeEnergy() {
-        // Check all sides of the block and send energy if that block supports the energy capability
         for (Direction direction : Direction.values()) {
             if (energy.getEnergyStored() <= 0) {
                 return;
             }
-            IEnergyStorage energy = level.getCapability(Capabilities.EnergyStorage.BLOCK, getBlockPos().relative(direction), null);
+            IEnergyStorage energy = level.getCapability(Capabilities.EnergyStorage.BLOCK, getBlockPos().relative(direction), direction);
             if (energy != null) {
                 if (energy.canReceive()) {
                     int received = energy.receiveEnergy(Math.min(this.energy.getEnergyStored(), MAXTRANSFER), false);

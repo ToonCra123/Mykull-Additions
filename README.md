@@ -7,4 +7,4 @@ No license yet or anything yeet for that sake, but soon there...
 
 
 
-Added Some Textures From Thermal Expansion, where they are under the https://creativecommons.org/licenses/by-nc-sa/4.0/ license. Don't judge me they look nice. 
+Some art is credited to TeamCoFH, under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0), a summary of which can be found at: https://creativecommons.org/licenses/by-nc-sa/4.0/
