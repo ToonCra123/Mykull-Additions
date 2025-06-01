@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "mykullsadditions:block/complex_block",
+    "east": "mykullsadditions:block/complex_block",
+    "north": "mykullsadditions:block/generator_front_off",
+    "particle": "mykullsadditions:block/complex_block",
+    "south": "mykullsadditions:block/complex_block",
+    "up": "mykullsadditions:block/complex_block",
+    "west": "mykullsadditions:block/complex_block"
+  }
+}
