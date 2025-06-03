@@ -32,6 +32,7 @@ public class MykullsAdditions {
         event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, Registration.COMPLEX_BLOCK_ENTITY.get(), (o, direction) -> o.getItemHandler());
         event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, Registration.GENERATOR_BLOCK_ENTITY.get(), (o, direction) -> o.getItemHandler());
         event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, Registration.GENERATOR_BLOCK_ENTITY.get(), (o, direction) -> o.getEnergyHandler());
+        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, Registration.CABLE_BLOCK_ENTITY.get(), (o, direction) -> o.getEnergyHandler());
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {

@@ -1,7 +1,9 @@
-// 1.21.1	2025-06-01T14:13:12.1699103	Block States: mykullsadditions
+// 1.21.1	2025-06-03T11:49:26.64965	Block States: mykullsadditions
+660fef59247f924a8c19aeb83fd99ab5ce00e863 assets/mykullsadditions/blockstates/cable_block.json
 79dc2fed14464747a0b714394bcecf5054330369 assets/mykullsadditions/blockstates/complex_block.json
 4c621a236569aa505bc6b92027c8b4ec37b304f9 assets/mykullsadditions/blockstates/generator_block.json
 44ff3145496fcf6e5fb7c14519bb5bb175738e7d assets/mykullsadditions/blockstates/simple_block.json
+ce3769786f6057a2802cf1ebb5add8da27ff27fc assets/mykullsadditions/models/block/cable.json
 3c4ab1c90023e9716f116d59765a34cfc90a3b90 assets/mykullsadditions/models/block/complex_block.json
 33d297f9e8c1979c7e13d2dfada28c2f84e31b80 assets/mykullsadditions/models/block/generator_block_off.json
 d5f297131283eb3ddd9fd3654008d65f9929d6d7 assets/mykullsadditions/models/block/generator_block_on.json

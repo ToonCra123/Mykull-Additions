@@ -61,7 +61,7 @@ public class Registration {
             () -> new BlockItem(COMPLEX_BLOCK.get(), new Item.Properties()));
     public static final DeferredItem<BlockItem> GENERATOR_BLOCK_ITEM = ITEMS.register("generator_block",
             () -> new BlockItem(GENERATOR_BLOCK.get(), new Item.Properties()));
-    public static final DeferredItem<BlockItem> CABLE_BLOCK_ITEM = ITEMS.register("generator_block",
+    public static final DeferredItem<BlockItem> CABLE_BLOCK_ITEM = ITEMS.register("cable_block",
             () -> new BlockItem(CABLE_BLOCK.get(), new Item.Properties()));
 
 
@@ -92,6 +92,7 @@ public class Registration {
                 output.accept(SIMPLE_BLOCK_ITEM.get());
                 output.accept(COMPLEX_BLOCK_ITEM.get());
                 output.accept(GENERATOR_BLOCK_ITEM.get());
+                output.accept(CABLE_BLOCK_ITEM.get());
             }).build());
 
     public static void init(IEventBus modEventBus) {

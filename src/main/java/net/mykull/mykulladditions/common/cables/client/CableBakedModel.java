@@ -127,16 +127,7 @@ public class CableBakedModel implements IDynamicBakedModel {
                 up = state.getValue(CableBlock.UP);
                 down = state.getValue(CableBlock.DOWN);
             } else {
-                // If we are a facade and we are an item then we render as the 'side' texture as a full block
-                if (false) {
-                    quads.add(quad(v(0, 1, 1), v(1, 1, 1), v(1, 1, 0), v(0, 1, 0), spriteSide));
-                    quads.add(quad(v(0, 0, 0), v(1, 0, 0), v(1, 0, 1), v(0, 0, 1), spriteSide));
-                    quads.add(quad(v(1, 0, 0), v(1, 1, 0), v(1, 1, 1), v(1, 0, 1), spriteSide));
-                    quads.add(quad(v(0, 0, 1), v(0, 1, 1), v(0, 1, 0), v(0, 0, 0), spriteSide));
-                    quads.add(quad(v(0, 1, 0), v(1, 1, 0), v(1, 0, 0), v(0, 0, 0), spriteSide));
-                    quads.add(quad(v(0, 0, 1), v(1, 0, 1), v(1, 1, 1), v(0, 1, 1), spriteSide));
-                    return quads;
-                }
+                // In inventory
                 north = south = west = east = up = down = NONE;
             }
 

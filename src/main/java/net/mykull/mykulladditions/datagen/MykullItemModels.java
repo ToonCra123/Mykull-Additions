@@ -16,5 +16,6 @@ public class MykullItemModels extends ItemModelProvider {
         withExistingParent(Registration.SIMPLE_BLOCK.getId().getPath(), modLoc("block/simple_block"));
         withExistingParent(Registration.COMPLEX_BLOCK.getId().getPath(), modLoc("block/complex_block"));
         withExistingParent(Registration.GENERATOR_BLOCK.getId().getPath(), modLoc("block/generator_block_off"));
+        withExistingParent(Registration.CABLE_BLOCK.getId().getPath(), modLoc("block/cable"));
     }
 }

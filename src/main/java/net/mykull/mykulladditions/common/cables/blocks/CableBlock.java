@@ -61,7 +61,10 @@ public class CableBlock extends Block implements EntityBlock {
     private static final VoxelShape SHAPE_BLOCK_DOWN = Shapes.box(.2, 0, .2, .8, .1, .8);
 
     public CableBlock(Properties properties) {
+
         super(properties);
+        makeShapes();
+        registerDefaultState(defaultBlockState().setValue(WATERLOGGED, false));
     }
 
     @Override

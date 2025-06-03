@@ -7,6 +7,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.Position;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.client.model.pipeline.QuadBakingVertexConsumer;
+import org.joml.Vector3d;
 
 public class BakedModelHelper {
 
@@ -23,7 +24,6 @@ public class BakedModelHelper {
     public static BakedQuad quad(Vec3 v1, Vec3 v2, Vec3 v3, Vec3 v4, TextureAtlasSprite sprite) {
         Vec3 normal = v3.subtract(v2).cross(v1.subtract(v2)).normalize();
 
-        BakedQuad[] quad = new BakedQuad[1];
         QuadBakingVertexConsumer builder = new QuadBakingVertexConsumer();
         builder.setSprite(sprite);
         builder.setDirection(Direction.getNearest(normal.x, normal.y, normal.z));
