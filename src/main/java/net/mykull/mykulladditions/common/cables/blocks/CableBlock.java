@@ -46,12 +46,12 @@ public class CableBlock extends Block implements EntityBlock {
 
     private static VoxelShape[] shapeCache = null;
 
-    private static final VoxelShape SHAPE_CABLE_NORTH = Shapes.box(.4, .4, 0, .6, .6, .4);
-    private static final VoxelShape SHAPE_CABLE_SOUTH = Shapes.box(.4, .4, .6, .6, .6, 1);
-    private static final VoxelShape SHAPE_CABLE_WEST = Shapes.box(0, .4, .4, .4, .6, .6);
-    private static final VoxelShape SHAPE_CABLE_EAST = Shapes.box(.6, .4, .4, 1, .6, .6);
-    private static final VoxelShape SHAPE_CABLE_UP = Shapes.box(.4, .6, .4, .6, 1, .6);
-    private static final VoxelShape SHAPE_CABLE_DOWN = Shapes.box(.4, 0, .4, .6, .4, .6);
+    private static final VoxelShape SHAPE_CABLE_NORTH = Shapes.box(0.3125, 0.3125, 0, 0.6875, .6875, 0.3125);
+    private static final VoxelShape SHAPE_CABLE_SOUTH = Shapes.box(0.3125, 0.3125, 0.6875, 0.6875, 0.6875, 1);
+    private static final VoxelShape SHAPE_CABLE_WEST = Shapes.box(0, 0.3125, 0.3125, 0.3125, 0.6875, 0.6875);
+    private static final VoxelShape SHAPE_CABLE_EAST = Shapes.box(0.6875, 0.3125, 0.3125, 1, 0.6875, 0.6875);
+    private static final VoxelShape SHAPE_CABLE_UP = Shapes.box(0.3125, 0.6875, 0.3125, 0.6875, 1, 0.6875);
+    private static final VoxelShape SHAPE_CABLE_DOWN = Shapes.box(0.3125, 0, 0.3125, 0.6875, 0.3125, 0.6875);
 
     private static final VoxelShape SHAPE_BLOCK_NORTH = Shapes.box(.2, .2, 0, .8, .8, .1);
     private static final VoxelShape SHAPE_BLOCK_SOUTH = Shapes.box(.2, .2, .9, .8, .8, 1);
@@ -115,7 +115,7 @@ public class CableBlock extends Block implements EntityBlock {
     }
 
     private VoxelShape makeShape(ConnectorType north, ConnectorType south, ConnectorType west, ConnectorType east, ConnectorType up, ConnectorType down) {
-        VoxelShape shape = Shapes.box(.4, .4, .4, .6, .6, .6);
+        VoxelShape shape = Shapes.box(0.3125, 0.3125, 0.3125, 0.6875, 0.6875, 0.6875);
         shape = combineShape(shape, north, SHAPE_CABLE_NORTH, SHAPE_BLOCK_NORTH);
         shape = combineShape(shape, south, SHAPE_CABLE_SOUTH, SHAPE_BLOCK_SOUTH);
         shape = combineShape(shape, west, SHAPE_CABLE_WEST, SHAPE_BLOCK_WEST);

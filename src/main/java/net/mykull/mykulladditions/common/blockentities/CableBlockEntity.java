@@ -21,6 +21,13 @@ import java.util.function.Consumer;
 
 public class CableBlockEntity extends BlockEntity {
 
+    private static class EnergyOutput {
+        public BlockPos pos;
+        public Direction dir;
+        EnergyOutput() {
+        }
+    }
+
     public static final String ENERGY_TAG = "Energy";
 
     public static final int MAXTRANSFER = 1000;
@@ -57,7 +64,7 @@ public class CableBlockEntity extends BlockEntity {
         super(Registration.CABLE_BLOCK_ENTITY.get(), pos, blockState);
     }
 
-    private Set<BlockPos> outputs = null;
+    private Set<EnergyOutput> outputs = null;
 
     public void tickServer() {
         if (energy.getEnergyStored() > 0) {
@@ -66,8 +73,8 @@ public class CableBlockEntity extends BlockEntity {
             if (!outputs.isEmpty()) {
                 // Distribute energy over all outputs
                 int amount = energy.getEnergyStored() / outputs.size();
-                for (BlockPos p : outputs) {
-                    IEnergyStorage handler = level.getCapability(Capabilities.EnergyStorage.BLOCK, p, null);
+                for (EnergyOutput p : outputs) {
+                    IEnergyStorage handler = level.getCapability(Capabilities.EnergyStorage.BLOCK, p.pos, p.dir);
                     if (handler != null) {
                         if (handler.canReceive()) {
                             int received = handler.receiveEnergy(amount, false);
@@ -93,10 +100,13 @@ public class CableBlockEntity extends BlockEntity {
                     BlockPos p = cable.getBlockPos().relative(direction);
                     BlockEntity te = level.getBlockEntity(p);
                     if (te != null && !(te instanceof CableBlockEntity)) {
-                        IEnergyStorage handler = level.getCapability(Capabilities.EnergyStorage.BLOCK, p, null);
+                        IEnergyStorage handler = level.getCapability(Capabilities.EnergyStorage.BLOCK, p, direction);
                         if (handler != null) {
                             if (handler.canReceive()) {
-                                outputs.add(p);
+                                EnergyOutput lol = new EnergyOutput();
+                                lol.pos = p;
+                                lol.dir = direction;
+                                outputs.add(lol);
                             }
                         }
                     }
