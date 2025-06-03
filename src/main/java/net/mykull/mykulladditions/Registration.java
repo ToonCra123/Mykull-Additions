@@ -14,11 +14,13 @@ import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
+import net.mykull.mykulladditions.common.blockentities.CableBlockEntity;
 import net.mykull.mykulladditions.common.blockentities.ComplexBlockEntity;
 import net.mykull.mykulladditions.common.blockentities.GeneratorBlockEntity;
 import net.mykull.mykulladditions.common.blocks.ComplexBlock;
 import net.mykull.mykulladditions.common.blocks.SimpleBlock;
 import net.mykull.mykulladditions.common.blocks.machine.GeneratorBlock;
+import net.mykull.mykulladditions.common.cables.blocks.CableBlock;
 import net.mykull.mykulladditions.common.containers.GeneratorContainer;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.common.extensions.IMenuTypeExtension;
@@ -48,6 +50,7 @@ public class Registration {
     public static final DeferredBlock<SimpleBlock> SIMPLE_BLOCK = BLOCKS.registerBlock("simple_block", SimpleBlock::new, BlockBehaviour.Properties.of().strength(3.5f).requiresCorrectToolForDrops().sound(SoundType.METAL).randomTicks());
     public static final DeferredBlock<ComplexBlock> COMPLEX_BLOCK = BLOCKS.registerBlock("complex_block", ComplexBlock::new, BlockBehaviour.Properties.of().strength(3.5f).requiresCorrectToolForDrops().sound(SoundType.METAL));
     public static final DeferredBlock<GeneratorBlock> GENERATOR_BLOCK = BLOCKS.registerBlock("generator_block", GeneratorBlock::new, BlockBehaviour.Properties.of().strength(3.5f).requiresCorrectToolForDrops().sound(SoundType.METAL));
+    public static final DeferredBlock<CableBlock> CABLE_BLOCK = BLOCKS.registerBlock("cable_block", CableBlock::new, BlockBehaviour.Properties.of().strength(3.5f).requiresCorrectToolForDrops().sound(SoundType.METAL));
 
 
     // Block Items
@@ -58,6 +61,8 @@ public class Registration {
             () -> new BlockItem(COMPLEX_BLOCK.get(), new Item.Properties()));
     public static final DeferredItem<BlockItem> GENERATOR_BLOCK_ITEM = ITEMS.register("generator_block",
             () -> new BlockItem(GENERATOR_BLOCK.get(), new Item.Properties()));
+    public static final DeferredItem<BlockItem> CABLE_BLOCK_ITEM = ITEMS.register("generator_block",
+            () -> new BlockItem(CABLE_BLOCK.get(), new Item.Properties()));
 
 
     // Block Entities
@@ -65,6 +70,8 @@ public class Registration {
             () -> BlockEntityType.Builder.of(ComplexBlockEntity::new, COMPLEX_BLOCK.get()).build(null));
     public static final Supplier<BlockEntityType<GeneratorBlockEntity>> GENERATOR_BLOCK_ENTITY = BLOCK_ENTITIES.register("generator_block_entity",
             () -> BlockEntityType.Builder.of(GeneratorBlockEntity::new, GENERATOR_BLOCK.get()).build(null));
+    public static final Supplier<BlockEntityType<CableBlockEntity>> CABLE_BLOCK_ENTITY = BLOCK_ENTITIES.register("cable_block_entity",
+            () -> BlockEntityType.Builder.of(CableBlockEntity::new, CABLE_BLOCK.get()).build(null));
 
 
     //menus

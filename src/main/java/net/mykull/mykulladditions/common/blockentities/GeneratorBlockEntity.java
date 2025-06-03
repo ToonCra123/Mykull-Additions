@@ -130,6 +130,12 @@ public class GeneratorBlockEntity extends BlockEntity {
     @Nonnull
     private ItemStackHandler createItemHandler() {
         return new ItemStackHandler(SLOT_COUNT) {
+
+            @Override
+            public boolean isItemValid(int slot, ItemStack stack) {
+                return (stack.getBurnTime(RecipeType.SMELTING) > 0);
+            }
+
             @Override
             protected void onContentsChanged(int slot) {
                 setChanged();

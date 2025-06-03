@@ -4,5 +4,6 @@
   "item.mykullsadditions.example_item": "Example Item",
   "block.mykullsadditions.complex_block": "Complex Block",
   "block.mykullsadditions.simple_block": "Simple Block",
+  "block.mykullsadditions.generator_block": "Coal Generator",
   "mykullsadditions.screen.generator": "Generator"
 }
