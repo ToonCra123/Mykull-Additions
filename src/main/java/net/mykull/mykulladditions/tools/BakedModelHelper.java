@@ -59,7 +59,7 @@ public class BakedModelHelper {
         return builder.bakeQuad();
     }
 
-    private static void putVertex(VertexConsumer builder, Position normal,
+    public static void putVertex(VertexConsumer builder, Position normal,
                                   double x, double y, double z, float u, float v,
                                   TextureAtlasSprite sprite) {
         float iu = sprite.getU(u);

@@ -35,6 +35,8 @@ import static net.mykull.mykulladditions.common.cables.ConnectorType.*;
 import static net.mykull.mykulladditions.common.cables.client.CablePatterns.SpriteIdx.*;
 import static net.mykull.mykulladditions.tools.BakedModelHelper.bakeQuad;
 import static net.mykull.mykulladditions.tools.BakedModelHelper.v;
+import static net.mykull.mykulladditions.tools.CableBakedModelHelper.bakeQuadConnector;
+import static net.mykull.mykulladditions.tools.CableBakedModelHelper.bakeQuadNormal;
 
 public class CableBakedModel implements IDynamicBakedModel {
 
@@ -43,6 +45,7 @@ public class CableBakedModel implements IDynamicBakedModel {
     private TextureAtlasSprite spriteConnector;
     private TextureAtlasSprite spriteNoneCable;
     private TextureAtlasSprite spriteNormalCable;
+    private TextureAtlasSprite spriteNormalCenterCable;
     private TextureAtlasSprite spriteEndCable;
     private TextureAtlasSprite spriteCornerCable;
     private TextureAtlasSprite spriteThreeCable;
@@ -78,12 +81,12 @@ public class CableBakedModel implements IDynamicBakedModel {
     private void initTextures() {
         if (spriteConnector == null) {
             spriteConnector = getTexture("block/cable/connector");
-            spriteNormalCable = getTexture("block/cable/normal");
-            spriteNoneCable = getTexture("block/cable/none");
-            spriteEndCable = getTexture("block/cable/end");
-            spriteCornerCable = getTexture("block/cable/corner");
-            spriteThreeCable = getTexture("block/cable/three");
-            spriteCrossCable = getTexture("block/cable/cross");
+            spriteNormalCable = getTexture("block/cable/normal_new");
+            spriteNoneCable = getTexture("block/cable/none_new");
+            spriteEndCable = getTexture("block/cable/end_new");
+            spriteCornerCable = getTexture("block/cable/corner_new");
+            spriteThreeCable = getTexture("block/cable/three_new");
+            spriteCrossCable = getTexture("block/cable/cross_new");
             spriteSide = getTexture("block/cable/side");
         }
     }
@@ -138,147 +141,147 @@ public class CableBakedModel implements IDynamicBakedModel {
             // 16 - 8
 
             double o = 0.3125;      // Thickness of the cable. .0 would be full block, .5 is infinitely thin.
-            double p = .1;      // Thickness of the connector as it is put on the connecting block
-            double q = .2;      // The wideness of the connector
+            double p = .25;      // Thickness of the connector as it is put on the connecting block
+            double q = .25;      // The wideness of the connector
 
             // For each side we either cap it off if there is no similar block adjacent on that side
             // or else we extend so that we touch the adjacent block:
             if (up == CABLE) {
-                quads.add(BakedModelHelper.bakeQuad(v(1 - o, 1, o), v(1 - o, 1, 1 - o), v(1 - o, 1 - o, 1 - o), v(1 - o, 1 - o, o), spriteCable));
-                quads.add(BakedModelHelper.bakeQuad(v(o, 1, 1 - o), v(o, 1, o), v(o, 1 - o, o), v(o, 1 - o, 1 - o), spriteCable));
-                quads.add(BakedModelHelper.bakeQuad(v(o, 1, o), v(1 - o, 1, o), v(1 - o, 1 - o, o), v(o, 1 - o, o), spriteCable));
-                quads.add(BakedModelHelper.bakeQuad(v(o, 1 - o, 1 - o), v(1 - o, 1 - o, 1 - o), v(1 - o, 1, 1 - o), v(o, 1, 1 - o), spriteCable));
+                quads.add(bakeQuadNormal(v(1 - o, 1, o), v(1 - o, 1, 1 - o), v(1 - o, 1 - o, 1 - o), v(1 - o, 1 - o, o), spriteCable));
+                quads.add(bakeQuadNormal(v(o, 1, 1 - o), v(o, 1, o), v(o, 1 - o, o), v(o, 1 - o, 1 - o), spriteCable));
+                quads.add(bakeQuadNormal(v(o, 1, o), v(1 - o, 1, o), v(1 - o, 1 - o, o), v(o, 1 - o, o), spriteCable));
+                quads.add(bakeQuadNormal(v(o, 1 - o, 1 - o), v(1 - o, 1 - o, 1 - o), v(1 - o, 1, 1 - o), v(o, 1, 1 - o), spriteCable));
             } else if (up == BLOCK) {
-                quads.add(BakedModelHelper.bakeQuad(v(1 - o, 1 - p, o), v(1 - o, 1 - p, 1 - o), v(1 - o, 1 - o, 1 - o), v(1 - o, 1 - o, o), spriteCable));
-                quads.add(BakedModelHelper.bakeQuad(v(o, 1 - p, 1 - o), v(o, 1 - p, o), v(o, 1 - o, o), v(o, 1 - o, 1 - o), spriteCable));
-                quads.add(BakedModelHelper.bakeQuad(v(o, 1 - p, o), v(1 - o, 1 - p, o), v(1 - o, 1 - o, o), v(o, 1 - o, o), spriteCable));
-                quads.add(BakedModelHelper.bakeQuad(v(o, 1 - o, 1 - o), v(1 - o, 1 - o, 1 - o), v(1 - o, 1 - p, 1 - o), v(o, 1 - p, 1 - o), spriteCable));
+                quads.add(bakeQuadNormal(v(1 - o, 1 - p, o), v(1 - o, 1 - p, 1 - o), v(1 - o, 1 - o, 1 - o), v(1 - o, 1 - o, o), spriteCable));
+                quads.add(bakeQuadNormal(v(o, 1 - p, 1 - o), v(o, 1 - p, o), v(o, 1 - o, o), v(o, 1 - o, 1 - o), spriteCable));
+                quads.add(bakeQuadNormal(v(o, 1 - p, o), v(1 - o, 1 - p, o), v(1 - o, 1 - o, o), v(o, 1 - o, o), spriteCable));
+                quads.add(bakeQuadNormal(v(o, 1 - o, 1 - o), v(1 - o, 1 - o, 1 - o), v(1 - o, 1 - p, 1 - o), v(o, 1 - p, 1 - o), spriteCable));
 
-                quads.add(BakedModelHelper.bakeQuadUV(v(1 - q, 1 - p, q), v(1 - q, 1, q), v(1 - q, 1, 1 - q), v(1 - q, 1 - p, 1 - q), spriteSide));
-                quads.add(BakedModelHelper.bakeQuadUV(v(q, 1 - p, 1 - q), v(q, 1, 1 - q), v(q, 1, q), v(q, 1 - p, q), spriteSide));
-                quads.add(BakedModelHelper.bakeQuadUV(v(q, 1, q), v(1 - q, 1, q), v(1 - q, 1 - p, q), v(q, 1 - p, q), spriteSide));
-                quads.add(BakedModelHelper.bakeQuadUV(v(q, 1 - p, 1 - q), v(1 - q, 1 - p, 1 - q), v(1 - q, 1, 1 - q), v(q, 1, 1 - q), spriteSide));
+                quads.add(bakeQuadConnector(v(1 - q, 1 - p, q), v(1 - q, 1, q), v(1 - q, 1, 1 - q), v(1 - q, 1 - p, 1 - q), spriteSide, 2));
+                quads.add(bakeQuadConnector(v(q, 1 - p, 1 - q), v(q, 1, 1 - q), v(q, 1, q), v(q, 1 - p, q), spriteSide, 2));
+                quads.add(bakeQuadConnector(v(q, 1, q), v(1 - q, 1, q), v(1 - q, 1 - p, q), v(q, 1 - p, q), spriteSide, 1));
+                quads.add(bakeQuadConnector(v(q, 1 - p, 1 - q), v(1 - q, 1 - p, 1 - q), v(1 - q, 1, 1 - q), v(q, 1, 1 - q), spriteSide, 3));
 
                 quads.add(BakedModelHelper.bakeQuad(v(q, 1 - p, q), v(1 - q, 1 - p, q), v(1 - q, 1 - p, 1 - q), v(q, 1 - p, 1 - q), spriteConnector));
                 quads.add(BakedModelHelper.bakeQuad(v(q, 1, q), v(q, 1, 1 - q), v(1 - q, 1, 1 - q), v(1 - q, 1, q), spriteSide));
             } else {
                 QuadSetting pattern = CablePatterns.findPattern(west, south, east, north);
-                quads.add(bakeQuad(v(o, 1 - o, 1 - o), v(1 - o, 1 - o, 1 - o), v(1 - o, 1 - o, o), v(o, 1 - o, o), spriteGetter.apply(pattern.sprite()), pattern.rotation()));
+                quads.add(bakeQuadNormal(v(o, 1 - o, 1 - o), v(1 - o, 1 - o, 1 - o), v(1 - o, 1 - o, o), v(o, 1 - o, o), spriteGetter.apply(pattern.sprite()), pattern.rotation()));
             }
 
             if (down == CABLE) {
-                quads.add(BakedModelHelper.bakeQuad(v(1 - o, o, o), v(1 - o, o, 1 - o), v(1 - o, 0, 1 - o), v(1 - o, 0, o), spriteCable));
-                quads.add(BakedModelHelper.bakeQuad(v(o, o, 1 - o), v(o, o, o), v(o, 0, o), v(o, 0, 1 - o), spriteCable));
-                quads.add(BakedModelHelper.bakeQuad(v(o, o, o), v(1 - o, o, o), v(1 - o, 0, o), v(o, 0, o), spriteCable));
-                quads.add(BakedModelHelper.bakeQuad(v(o, 0, 1 - o), v(1 - o, 0, 1 - o), v(1 - o, o, 1 - o), v(o, o, 1 - o), spriteCable));
+                quads.add(bakeQuadNormal(v(1 - o, o, o), v(1 - o, o, 1 - o), v(1 - o, 0, 1 - o), v(1 - o, 0, o), spriteCable));
+                quads.add(bakeQuadNormal(v(o, o, 1 - o), v(o, o, o), v(o, 0, o), v(o, 0, 1 - o), spriteCable));
+                quads.add(bakeQuadNormal(v(o, o, o), v(1 - o, o, o), v(1 - o, 0, o), v(o, 0, o), spriteCable));
+                quads.add(bakeQuadNormal(v(o, 0, 1 - o), v(1 - o, 0, 1 - o), v(1 - o, o, 1 - o), v(o, o, 1 - o), spriteCable));
             } else if (down == BLOCK) {
-                quads.add(BakedModelHelper.bakeQuad(v(1 - o, o, o), v(1 - o, o, 1 - o), v(1 - o, p, 1 - o), v(1 - o, p, o), spriteCable));
-                quads.add(BakedModelHelper.bakeQuad(v(o, o, 1 - o), v(o, o, o), v(o, p, o), v(o, p, 1 - o), spriteCable));
-                quads.add(BakedModelHelper.bakeQuad(v(o, o, o), v(1 - o, o, o), v(1 - o, p, o), v(o, p, o), spriteCable));
-                quads.add(BakedModelHelper.bakeQuad(v(o, p, 1 - o), v(1 - o, p, 1 - o), v(1 - o, o, 1 - o), v(o, o, 1 - o), spriteCable));
+                quads.add(bakeQuadNormal(v(1 - o, o, o), v(1 - o, o, 1 - o), v(1 - o, p, 1 - o), v(1 - o, p, o), spriteCable));
+                quads.add(bakeQuadNormal(v(o, o, 1 - o), v(o, o, o), v(o, p, o), v(o, p, 1 - o), spriteCable));
+                quads.add(bakeQuadNormal(v(o, o, o), v(1 - o, o, o), v(1 - o, p, o), v(o, p, o), spriteCable));
+                quads.add(bakeQuadNormal(v(o, p, 1 - o), v(1 - o, p, 1 - o), v(1 - o, o, 1 - o), v(o, o, 1 - o), spriteCable));
 
-                quads.add(BakedModelHelper.bakeQuadUV(v(1 - q, 0, q), v(1 - q, p, q), v(1 - q, p, 1 - q), v(1 - q, 0, 1 - q), spriteSide));
-                quads.add(BakedModelHelper.bakeQuadUV(v(q, 0, 1 - q), v(q, p, 1 - q), v(q, p, q), v(q, 0, q), spriteSide));
-                quads.add(BakedModelHelper.bakeQuadUV(v(q, p, q), v(1 - q, p, q), v(1 - q, 0, q), v(q, 0, q), spriteSide));
-                quads.add(BakedModelHelper.bakeQuadUV(v(q, 0, 1 - q), v(1 - q, 0, 1 - q), v(1 - q, p, 1 - q), v(q, p, 1 - q), spriteSide));
+                quads.add(bakeQuadConnector(v(1 - q, 0, q), v(1 - q, p, q), v(1 - q, p, 1 - q), v(1 - q, 0, 1 - q), spriteSide)); // east
+                quads.add(bakeQuadConnector(v(q, 0, 1 - q), v(q, p, 1 - q), v(q, p, q), v(q, 0, q), spriteSide)); // west
+                quads.add(bakeQuadConnector(v(q, p, q), v(1 - q, p, q), v(1 - q, 0, q), v(q, 0, q), spriteSide, 3)); // north
+                quads.add(bakeQuadConnector(v(q, 0, 1 - q), v(1 - q, 0, 1 - q), v(1 - q, p, 1 - q), v(q, p, 1 - q), spriteSide, 1)); // south
 
                 quads.add(BakedModelHelper.bakeQuad(v(q, p, 1 - q), v(1 - q, p, 1 - q), v(1 - q, p, q), v(q, p, q), spriteConnector));
                 quads.add(BakedModelHelper.bakeQuad(v(q, 0, 1 - q), v(q, 0, q), v(1 - q, 0, q), v(1 - q, 0, 1 - q), spriteSide));
             } else {
                 QuadSetting pattern = CablePatterns.findPattern(west, north, east, south);
-                quads.add(bakeQuad(v(o, o, o), v(1 - o, o, o), v(1 - o, o, 1 - o), v(o, o, 1 - o), spriteGetter.apply(pattern.sprite()), pattern.rotation()));
+                quads.add(bakeQuadNormal(v(o, o, o), v(1 - o, o, o), v(1 - o, o, 1 - o), v(o, o, 1 - o), spriteGetter.apply(pattern.sprite()), pattern.rotation()));
             }
 
             if (east == CABLE) {
-                quads.add(BakedModelHelper.bakeQuad(v(1, 1 - o, 1 - o), v(1, 1 - o, o), v(1 - o, 1 - o, o), v(1 - o, 1 - o, 1 - o), spriteCable));
-                quads.add(BakedModelHelper.bakeQuad(v(1, o, o), v(1, o, 1 - o), v(1 - o, o, 1 - o), v(1 - o, o, o), spriteCable));
-                quads.add(BakedModelHelper.bakeQuad(v(1, 1 - o, o), v(1, o, o), v(1 - o, o, o), v(1 - o, 1 - o, o), spriteCable));
-                quads.add(BakedModelHelper.bakeQuad(v(1, o, 1 - o), v(1, 1 - o, 1 - o), v(1 - o, 1 - o, 1 - o), v(1 - o, o, 1 - o), spriteCable));
+                quads.add(bakeQuadNormal(v(1, 1 - o, 1 - o), v(1, 1 - o, o), v(1 - o, 1 - o, o), v(1 - o, 1 - o, 1 - o), spriteCable));
+                quads.add(bakeQuadNormal(v(1, o, o), v(1, o, 1 - o), v(1 - o, o, 1 - o), v(1 - o, o, o), spriteCable));
+                quads.add(bakeQuadNormal(v(1, 1 - o, o), v(1, o, o), v(1 - o, o, o), v(1 - o, 1 - o, o), spriteCable));
+                quads.add(bakeQuadNormal(v(1, o, 1 - o), v(1, 1 - o, 1 - o), v(1 - o, 1 - o, 1 - o), v(1 - o, o, 1 - o), spriteCable));
             } else if (east == BLOCK) {
-                quads.add(BakedModelHelper.bakeQuad(v(1 - p, 1 - o, 1 - o), v(1 - p, 1 - o, o), v(1 - o, 1 - o, o), v(1 - o, 1 - o, 1 - o), spriteCable));
-                quads.add(BakedModelHelper.bakeQuad(v(1 - p, o, o), v(1 - p, o, 1 - o), v(1 - o, o, 1 - o), v(1 - o, o, o), spriteCable));
-                quads.add(BakedModelHelper.bakeQuad(v(1 - p, 1 - o, o), v(1 - p, o, o), v(1 - o, o, o), v(1 - o, 1 - o, o), spriteCable));
-                quads.add(BakedModelHelper.bakeQuad(v(1 - p, o, 1 - o), v(1 - p, 1 - o, 1 - o), v(1 - o, 1 - o, 1 - o), v(1 - o, o, 1 - o), spriteCable));
+                quads.add(bakeQuadNormal(v(1 - p, 1 - o, 1 - o), v(1 - p, 1 - o, o), v(1 - o, 1 - o, o), v(1 - o, 1 - o, 1 - o), spriteCable));
+                quads.add(bakeQuadNormal(v(1 - p, o, o), v(1 - p, o, 1 - o), v(1 - o, o, 1 - o), v(1 - o, o, o), spriteCable));
+                quads.add(bakeQuadNormal(v(1 - p, 1 - o, o), v(1 - p, o, o), v(1 - o, o, o), v(1 - o, 1 - o, o), spriteCable));
+                quads.add(bakeQuadNormal(v(1 - p, o, 1 - o), v(1 - p, 1 - o, 1 - o), v(1 - o, 1 - o, 1 - o), v(1 - o, o, 1 - o), spriteCable));
 
-                quads.add(BakedModelHelper.bakeQuadUV(v(1 - p, 1 - q, 1 - q), v(1, 1 - q, 1 - q), v(1, 1 - q, q), v(1 - p, 1 - q, q), spriteSide));
-                quads.add(BakedModelHelper.bakeQuadUV(v(1 - p, q, q), v(1, q, q), v(1, q, 1 - q), v(1 - p, q, 1 - q), spriteSide));
-                quads.add(BakedModelHelper.bakeQuadUV(v(1 - p, 1 - q, q), v(1, 1 - q, q), v(1, q, q), v(1 - p, q, q), spriteSide));
-                quads.add(BakedModelHelper.bakeQuadUV(v(1 - p, q, 1 - q), v(1, q, 1 - q), v(1, 1 - q, 1 - q), v(1 - p, 1 - q, 1 - q), spriteSide));
+                quads.add(bakeQuadConnector(v(1 - p, 1 - q, 1 - q), v(1, 1 - q, 1 - q), v(1, 1 - q, q), v(1 - p, 1 - q, q), spriteSide, 2));
+                quads.add(bakeQuadConnector(v(1 - p, q, q), v(1, q, q), v(1, q, 1 - q), v(1 - p, q, 1 - q), spriteSide, 2));
+                quads.add(bakeQuadConnector(v(1 - p, 1 - q, q), v(1, 1 - q, q), v(1, q, q), v(1 - p, q, q), spriteSide, 2));
+                quads.add(bakeQuadConnector(v(1 - p, q, 1 - q), v(1, q, 1 - q), v(1, 1 - q, 1 - q), v(1 - p, 1 - q, 1 - q), spriteSide, 2));
 
                 quads.add(BakedModelHelper.bakeQuad(v(1 - p, q, 1 - q), v(1 - p, 1 - q, 1 - q), v(1 - p, 1 - q, q), v(1 - p, q, q), spriteConnector));
                 quads.add(BakedModelHelper.bakeQuad(v(1, q, 1 - q), v(1, q, q), v(1, 1 - q, q), v(1, 1 - q, 1 - q), spriteSide));
             } else {
                 QuadSetting pattern = CablePatterns.findPattern(down, north, up, south);
-                quads.add(bakeQuad(v(1 - o, o, o), v(1 - o, 1 - o, o), v(1 - o, 1 - o, 1 - o), v(1 - o, o, 1 - o), spriteGetter.apply(pattern.sprite()), pattern.rotation()));
+                quads.add(bakeQuadNormal(v(1 - o, o, o), v(1 - o, 1 - o, o), v(1 - o, 1 - o, 1 - o), v(1 - o, o, 1 - o), spriteGetter.apply(pattern.sprite()), pattern.rotation()));
             }
 
             if (west == CABLE) {
-                quads.add(BakedModelHelper.bakeQuad(v(o, 1 - o, 1 - o), v(o, 1 - o, o), v(0, 1 - o, o), v(0, 1 - o, 1 - o), spriteCable));
-                quads.add(BakedModelHelper.bakeQuad(v(o, o, o), v(o, o, 1 - o), v(0, o, 1 - o), v(0, o, o), spriteCable));
-                quads.add(BakedModelHelper.bakeQuad(v(o, 1 - o, o), v(o, o, o), v(0, o, o), v(0, 1 - o, o), spriteCable));
-                quads.add(BakedModelHelper.bakeQuad(v(o, o, 1 - o), v(o, 1 - o, 1 - o), v(0, 1 - o, 1 - o), v(0, o, 1 - o), spriteCable));
+                quads.add(bakeQuadNormal(v(o, 1 - o, 1 - o), v(o, 1 - o, o), v(0, 1 - o, o), v(0, 1 - o, 1 - o), spriteCable));
+                quads.add(bakeQuadNormal(v(o, o, o), v(o, o, 1 - o), v(0, o, 1 - o), v(0, o, o), spriteCable));
+                quads.add(bakeQuadNormal(v(o, 1 - o, o), v(o, o, o), v(0, o, o), v(0, 1 - o, o), spriteCable));
+                quads.add(bakeQuadNormal(v(o, o, 1 - o), v(o, 1 - o, 1 - o), v(0, 1 - o, 1 - o), v(0, o, 1 - o), spriteCable));
             } else if (west == BLOCK) {
-                quads.add(BakedModelHelper.bakeQuad(v(o, 1 - o, 1 - o), v(o, 1 - o, o), v(p, 1 - o, o), v(p, 1 - o, 1 - o), spriteCable));
-                quads.add(BakedModelHelper.bakeQuad(v(o, o, o), v(o, o, 1 - o), v(p, o, 1 - o), v(p, o, o), spriteCable));
-                quads.add(BakedModelHelper.bakeQuad(v(o, 1 - o, o), v(o, o, o), v(p, o, o), v(p, 1 - o, o), spriteCable));
-                quads.add(BakedModelHelper.bakeQuad(v(o, o, 1 - o), v(o, 1 - o, 1 - o), v(p, 1 - o, 1 - o), v(p, o, 1 - o), spriteCable));
+                quads.add(bakeQuadNormal(v(o, 1 - o, 1 - o), v(o, 1 - o, o), v(p, 1 - o, o), v(p, 1 - o, 1 - o), spriteCable));
+                quads.add(bakeQuadNormal(v(o, o, o), v(o, o, 1 - o), v(p, o, 1 - o), v(p, o, o), spriteCable));
+                quads.add(bakeQuadNormal(v(o, 1 - o, o), v(o, o, o), v(p, o, o), v(p, 1 - o, o), spriteCable));
+                quads.add(bakeQuadNormal(v(o, o, 1 - o), v(o, 1 - o, 1 - o), v(p, 1 - o, 1 - o), v(p, o, 1 - o), spriteCable));
 
-                quads.add(BakedModelHelper.bakeQuadUV(v(0, 1 - q, 1 - q), v(p, 1 - q, 1 - q), v(p, 1 - q, q), v(0, 1 - q, q), spriteSide));
-                quads.add(BakedModelHelper.bakeQuadUV(v(0, q, q), v(p, q, q), v(p, q, 1 - q), v(0, q, 1 - q), spriteSide));
-                quads.add(BakedModelHelper.bakeQuadUV(v(0, 1 - q, q), v(p, 1 - q, q), v(p, q, q), v(0, q, q), spriteSide));
-                quads.add(BakedModelHelper.bakeQuadUV(v(0, q, 1 - q), v(p, q, 1 - q), v(p, 1 - q, 1 - q), v(0, 1 - q, 1 - q), spriteSide));
+                quads.add(bakeQuadConnector(v(0, 1 - q, 1 - q), v(p, 1 - q, 1 - q), v(p, 1 - q, q), v(0, 1 - q, q), spriteSide));
+                quads.add(bakeQuadConnector(v(0, q, q), v(p, q, q), v(p, q, 1 - q), v(0, q, 1 - q), spriteSide));
+                quads.add(bakeQuadConnector(v(0, 1 - q, q), v(p, 1 - q, q), v(p, q, q), v(0, q, q), spriteSide));
+                quads.add(bakeQuadConnector(v(0, q, 1 - q), v(p, q, 1 - q), v(p, 1 - q, 1 - q), v(0, 1 - q, 1 - q), spriteSide));
 
                 quads.add(BakedModelHelper.bakeQuad(v(p, q, q), v(p, 1 - q, q), v(p, 1 - q, 1 - q), v(p, q, 1 - q), spriteConnector));
                 quads.add(BakedModelHelper.bakeQuad(v(0, q, q), v(0, q, 1 - q), v(0, 1 - q, 1 - q), v(0, 1 - q, q), spriteSide));
             } else {
                 QuadSetting pattern = CablePatterns.findPattern(down, south, up, north);
-                quads.add(bakeQuad(v(o, o, 1 - o), v(o, 1 - o, 1 - o), v(o, 1 - o, o), v(o, o, o), spriteGetter.apply(pattern.sprite()), pattern.rotation()));
+                quads.add(bakeQuadNormal(v(o, o, 1 - o), v(o, 1 - o, 1 - o), v(o, 1 - o, o), v(o, o, o), spriteGetter.apply(pattern.sprite()), pattern.rotation()));
             }
 
             if (north == CABLE) {
-                quads.add(BakedModelHelper.bakeQuad(v(o, 1 - o, o), v(1 - o, 1 - o, o), v(1 - o, 1 - o, 0), v(o, 1 - o, 0), spriteCable));
-                quads.add(BakedModelHelper.bakeQuad(v(o, o, 0), v(1 - o, o, 0), v(1 - o, o, o), v(o, o, o), spriteCable));
-                quads.add(BakedModelHelper.bakeQuad(v(1 - o, o, 0), v(1 - o, 1 - o, 0), v(1 - o, 1 - o, o), v(1 - o, o, o), spriteCable));
-                quads.add(BakedModelHelper.bakeQuad(v(o, o, o), v(o, 1 - o, o), v(o, 1 - o, 0), v(o, o, 0), spriteCable));
+                quads.add(bakeQuadNormal(v(o, 1 - o, o), v(1 - o, 1 - o, o), v(1 - o, 1 - o, 0), v(o, 1 - o, 0), spriteCable));
+                quads.add(bakeQuadNormal(v(o, o, 0), v(1 - o, o, 0), v(1 - o, o, o), v(o, o, o), spriteCable));
+                quads.add(bakeQuadNormal(v(1 - o, o, 0), v(1 - o, 1 - o, 0), v(1 - o, 1 - o, o), v(1 - o, o, o), spriteCable));
+                quads.add(bakeQuadNormal(v(o, o, o), v(o, 1 - o, o), v(o, 1 - o, 0), v(o, o, 0), spriteCable));
             } else if (north == BLOCK) {
-                quads.add(BakedModelHelper.bakeQuad(v(o, 1 - o, o), v(1 - o, 1 - o, o), v(1 - o, 1 - o, p), v(o, 1 - o, p), spriteCable));
-                quads.add(BakedModelHelper.bakeQuad(v(o, o, p), v(1 - o, o, p), v(1 - o, o, o), v(o, o, o), spriteCable));
-                quads.add(BakedModelHelper.bakeQuad(v(1 - o, o, p), v(1 - o, 1 - o, p), v(1 - o, 1 - o, o), v(1 - o, o, o), spriteCable));
-                quads.add(BakedModelHelper.bakeQuad(v(o, o, o), v(o, 1 - o, o), v(o, 1 - o, p), v(o, o, p), spriteCable));
+                quads.add(bakeQuadNormal(v(o, 1 - o, o), v(1 - o, 1 - o, o), v(1 - o, 1 - o, p), v(o, 1 - o, p), spriteCable));
+                quads.add(bakeQuadNormal(v(o, o, p), v(1 - o, o, p), v(1 - o, o, o), v(o, o, o), spriteCable));
+                quads.add(bakeQuadNormal(v(1 - o, o, p), v(1 - o, 1 - o, p), v(1 - o, 1 - o, o), v(1 - o, o, o), spriteCable));
+                quads.add(bakeQuadNormal(v(o, o, o), v(o, 1 - o, o), v(o, 1 - o, p), v(o, o, p), spriteCable));
 
-                quads.add(BakedModelHelper.bakeQuadUV(v(q, 1 - q, p), v(1 - q, 1 - q, p), v(1 - q, 1 - q, 0), v(q, 1 - q, 0), spriteSide));
-                quads.add(BakedModelHelper.bakeQuadUV(v(q, q, 0), v(1 - q, q, 0), v(1 - q, q, p), v(q, q, p), spriteSide));
-                quads.add(BakedModelHelper.bakeQuadUV(v(1 - q, q, 0), v(1 - q, 1 - q, 0), v(1 - q, 1 - q, p), v(1 - q, q, p), spriteSide));
-                quads.add(BakedModelHelper.bakeQuadUV(v(q, q, p), v(q, 1 - q, p), v(q, 1 - q, 0), v(q, q, 0), spriteSide));
+                quads.add(bakeQuadConnector(v(q, 1 - q, p), v(1 - q, 1 - q, p), v(1 - q, 1 - q, 0), v(q, 1 - q, 0), spriteSide, 3));
+                quads.add(bakeQuadConnector(v(q, q, 0), v(1 - q, q, 0), v(1 - q, q, p), v(q, q, p), spriteSide, 1));
+                quads.add(bakeQuadConnector(v(1 - q, q, 0), v(1 - q, 1 - q, 0), v(1 - q, 1 - q, p), v(1 - q, q, p), spriteSide, 1));
+                quads.add(bakeQuadConnector(v(q, q, p), v(q, 1 - q, p), v(q, 1 - q, 0), v(q, q, 0), spriteSide, 3));
 
                 quads.add(BakedModelHelper.bakeQuad(v(q, q, p), v(1 - q, q, p), v(1 - q, 1 - q, p), v(q, 1 - q, p), spriteConnector));
                 quads.add(BakedModelHelper.bakeQuad(v(q, q, 0), v(q, 1 - q, 0), v(1 - q, 1 - q, 0), v(1 - q, q, 0), spriteSide));
             } else {
                 QuadSetting pattern = CablePatterns.findPattern(west, up, east, down);
-                quads.add(bakeQuad(v(o, 1 - o, o), v(1 - o, 1 - o, o), v(1 - o, o, o), v(o, o, o), spriteGetter.apply(pattern.sprite()), pattern.rotation()));
+                quads.add(bakeQuadNormal(v(o, 1 - o, o), v(1 - o, 1 - o, o), v(1 - o, o, o), v(o, o, o), spriteGetter.apply(pattern.sprite()), pattern.rotation()));
             }
 
             if (south == CABLE) {
-                quads.add(BakedModelHelper.bakeQuad(v(o, 1 - o, 1), v(1 - o, 1 - o, 1), v(1 - o, 1 - o, 1 - o), v(o, 1 - o, 1 - o), spriteCable));
-                quads.add(BakedModelHelper.bakeQuad(v(o, o, 1 - o), v(1 - o, o, 1 - o), v(1 - o, o, 1), v(o, o, 1), spriteCable));
-                quads.add(BakedModelHelper.bakeQuad(v(1 - o, o, 1 - o), v(1 - o, 1 - o, 1 - o), v(1 - o, 1 - o, 1), v(1 - o, o, 1), spriteCable));
-                quads.add(BakedModelHelper.bakeQuad(v(o, o, 1), v(o, 1 - o, 1), v(o, 1 - o, 1 - o), v(o, o, 1 - o), spriteCable));
+                quads.add(bakeQuadNormal(v(o, 1 - o, 1), v(1 - o, 1 - o, 1), v(1 - o, 1 - o, 1 - o), v(o, 1 - o, 1 - o), spriteCable));
+                quads.add(bakeQuadNormal(v(o, o, 1 - o), v(1 - o, o, 1 - o), v(1 - o, o, 1), v(o, o, 1), spriteCable));
+                quads.add(bakeQuadNormal(v(1 - o, o, 1 - o), v(1 - o, 1 - o, 1 - o), v(1 - o, 1 - o, 1), v(1 - o, o, 1), spriteCable));
+                quads.add(bakeQuadNormal(v(o, o, 1), v(o, 1 - o, 1), v(o, 1 - o, 1 - o), v(o, o, 1 - o), spriteCable));
             } else if (south == BLOCK) {
-                quads.add(BakedModelHelper.bakeQuad(v(o, 1 - o, 1 - p), v(1 - o, 1 - o, 1 - p), v(1 - o, 1 - o, 1 - o), v(o, 1 - o, 1 - o), spriteCable));
-                quads.add(BakedModelHelper.bakeQuad(v(o, o, 1 - o), v(1 - o, o, 1 - o), v(1 - o, o, 1 - p), v(o, o, 1 - p), spriteCable));
-                quads.add(BakedModelHelper.bakeQuad(v(1 - o, o, 1 - o), v(1 - o, 1 - o, 1 - o), v(1 - o, 1 - o, 1 - p), v(1 - o, o, 1 - p), spriteCable));
-                quads.add(BakedModelHelper.bakeQuad(v(o, o, 1 - p), v(o, 1 - o, 1 - p), v(o, 1 - o, 1 - o), v(o, o, 1 - o), spriteCable));
+                quads.add(bakeQuadNormal(v(o, 1 - o, 1 - p), v(1 - o, 1 - o, 1 - p), v(1 - o, 1 - o, 1 - o), v(o, 1 - o, 1 - o), spriteCable));
+                quads.add(bakeQuadNormal(v(o, o, 1 - o), v(1 - o, o, 1 - o), v(1 - o, o, 1 - p), v(o, o, 1 - p), spriteCable));
+                quads.add(bakeQuadNormal(v(1 - o, o, 1 - o), v(1 - o, 1 - o, 1 - o), v(1 - o, 1 - o, 1 - p), v(1 - o, o, 1 - p), spriteCable));
+                quads.add(bakeQuadNormal(v(o, o, 1 - p), v(o, 1 - o, 1 - p), v(o, 1 - o, 1 - o), v(o, o, 1 - o), spriteCable));
 
-                quads.add(BakedModelHelper.bakeQuadUV(v(q, 1 - q, 1), v(1 - q, 1 - q, 1), v(1 - q, 1 - q, 1 - p), v(q, 1 - q, 1 - p), spriteSide));
-                quads.add(BakedModelHelper.bakeQuadUV(v(q, q, 1 - p), v(1 - q, q, 1 - p), v(1 - q, q, 1), v(q, q, 1), spriteSide));
-                quads.add(BakedModelHelper.bakeQuadUV(v(1 - q, q, 1 - p), v(1 - q, 1 - q, 1 - p), v(1 - q, 1 - q, 1), v(1 - q, q, 1), spriteSide));
-                quads.add(BakedModelHelper.bakeQuadUV(v(q, q, 1), v(q, 1 - q, 1), v(q, 1 - q, 1 - p), v(q, q, 1 - p), spriteSide));
+                quads.add(bakeQuadConnector(v(q, 1 - q, 1), v(1 - q, 1 - q, 1), v(1 - q, 1 - q, 1 - p), v(q, 1 - q, 1 - p), spriteSide, 1));
+                quads.add(bakeQuadConnector(v(q, q, 1 - p), v(1 - q, q, 1 - p), v(1 - q, q, 1), v(q, q, 1), spriteSide, 3));
+                quads.add(bakeQuadConnector(v(1 - q, q, 1 - p), v(1 - q, 1 - q, 1 - p), v(1 - q, 1 - q, 1), v(1 - q, q, 1), spriteSide, 3));
+                quads.add(bakeQuadConnector(v(q, q, 1), v(q, 1 - q, 1), v(q, 1 - q, 1 - p), v(q, q, 1 - p), spriteSide, 1));
 
                 quads.add(BakedModelHelper.bakeQuad(v(q, 1 - q, 1 - p), v(1 - q, 1 - q, 1 - p), v(1 - q, q, 1 - p), v(q, q, 1 - p), spriteConnector));
                 quads.add(BakedModelHelper.bakeQuad(v(q, 1 - q, 1), v(q, q, 1), v(1 - q, q, 1), v(1 - q, 1 - q, 1), spriteSide));
             } else {
                 QuadSetting pattern = CablePatterns.findPattern(west, down, east, up);
-                quads.add(bakeQuad(v(o, o, 1 - o), v(1 - o, o, 1 - o), v(1 - o, 1 - o, 1 - o), v(o, 1 - o, 1 - o), spriteGetter.apply(pattern.sprite()), pattern.rotation()));
+                quads.add(bakeQuadNormal(v(o, o, 1 - o), v(1 - o, o, 1 - o), v(1 - o, 1 - o, 1 - o), v(o, 1 - o, 1 - o), spriteGetter.apply(pattern.sprite()), pattern.rotation()));
             }
         }
 
