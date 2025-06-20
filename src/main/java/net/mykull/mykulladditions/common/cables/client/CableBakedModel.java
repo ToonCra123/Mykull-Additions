@@ -35,8 +35,7 @@ import static net.mykull.mykulladditions.common.cables.ConnectorType.*;
 import static net.mykull.mykulladditions.common.cables.client.CablePatterns.SpriteIdx.*;
 import static net.mykull.mykulladditions.tools.BakedModelHelper.bakeQuad;
 import static net.mykull.mykulladditions.tools.BakedModelHelper.v;
-import static net.mykull.mykulladditions.tools.CableBakedModelHelper.bakeQuadConnector;
-import static net.mykull.mykulladditions.tools.CableBakedModelHelper.bakeQuadNormal;
+import static net.mykull.mykulladditions.tools.CableBakedModelHelper.*;
 
 public class CableBakedModel implements IDynamicBakedModel {
 
@@ -45,11 +44,6 @@ public class CableBakedModel implements IDynamicBakedModel {
     private TextureAtlasSprite spriteConnector;
     private TextureAtlasSprite spriteNoneCable;
     private TextureAtlasSprite spriteNormalCable;
-    private TextureAtlasSprite spriteNormalCenterCable;
-    private TextureAtlasSprite spriteEndCable;
-    private TextureAtlasSprite spriteCornerCable;
-    private TextureAtlasSprite spriteThreeCable;
-    private TextureAtlasSprite spriteCrossCable;
     private TextureAtlasSprite spriteSide;
 
     static {
@@ -81,12 +75,8 @@ public class CableBakedModel implements IDynamicBakedModel {
     private void initTextures() {
         if (spriteConnector == null) {
             spriteConnector = getTexture("block/cable/connector");
-            spriteNormalCable = getTexture("block/cable/normal_new");
-            spriteNoneCable = getTexture("block/cable/none_new");
-            spriteEndCable = getTexture("block/cable/end_new");
-            spriteCornerCable = getTexture("block/cable/corner_new");
-            spriteThreeCable = getTexture("block/cable/three_new");
-            spriteCrossCable = getTexture("block/cable/cross_new");
+            spriteNormalCable = getTexture("block/cable/normal");
+            spriteNoneCable = getTexture("block/cable/none");
             spriteSide = getTexture("block/cable/side");
         }
     }
@@ -100,11 +90,11 @@ public class CableBakedModel implements IDynamicBakedModel {
         initTextures();
         return switch (idx) {
             case SPRITE_NONE -> spriteNoneCable;
-            case SPRITE_END -> spriteEndCable;
+            case SPRITE_END -> spriteNoneCable;
             case SPRITE_STRAIGHT -> spriteNormalCable;
-            case SPRITE_CORNER -> spriteCornerCable;
-            case SPRITE_THREE -> spriteThreeCable;
-            case SPRITE_CROSS -> spriteCrossCable;
+            case SPRITE_CORNER -> spriteNoneCable;
+            case SPRITE_THREE -> spriteNoneCable;
+            case SPRITE_CROSS -> spriteNoneCable;
         };
     }
 
@@ -166,7 +156,7 @@ public class CableBakedModel implements IDynamicBakedModel {
                 quads.add(BakedModelHelper.bakeQuad(v(q, 1, q), v(q, 1, 1 - q), v(1 - q, 1, 1 - q), v(1 - q, 1, q), spriteSide));
             } else {
                 QuadSetting pattern = CablePatterns.findPattern(west, south, east, north);
-                quads.add(bakeQuadNormal(v(o, 1 - o, 1 - o), v(1 - o, 1 - o, 1 - o), v(1 - o, 1 - o, o), v(o, 1 - o, o), spriteGetter.apply(pattern.sprite()), pattern.rotation()));
+                quads.add(bakeQuadCenter(v(o, 1 - o, 1 - o), v(1 - o, 1 - o, 1 - o), v(1 - o, 1 - o, o), v(o, 1 - o, o), spriteGetter.apply(pattern.sprite()), pattern.rotation()));
             }
 
             if (down == CABLE) {
@@ -189,7 +179,7 @@ public class CableBakedModel implements IDynamicBakedModel {
                 quads.add(BakedModelHelper.bakeQuad(v(q, 0, 1 - q), v(q, 0, q), v(1 - q, 0, q), v(1 - q, 0, 1 - q), spriteSide));
             } else {
                 QuadSetting pattern = CablePatterns.findPattern(west, north, east, south);
-                quads.add(bakeQuadNormal(v(o, o, o), v(1 - o, o, o), v(1 - o, o, 1 - o), v(o, o, 1 - o), spriteGetter.apply(pattern.sprite()), pattern.rotation()));
+                quads.add(bakeQuadCenter(v(o, o, o), v(1 - o, o, o), v(1 - o, o, 1 - o), v(o, o, 1 - o), spriteGetter.apply(pattern.sprite()), pattern.rotation()));
             }
 
             if (east == CABLE) {
@@ -212,7 +202,7 @@ public class CableBakedModel implements IDynamicBakedModel {
                 quads.add(BakedModelHelper.bakeQuad(v(1, q, 1 - q), v(1, q, q), v(1, 1 - q, q), v(1, 1 - q, 1 - q), spriteSide));
             } else {
                 QuadSetting pattern = CablePatterns.findPattern(down, north, up, south);
-                quads.add(bakeQuadNormal(v(1 - o, o, o), v(1 - o, 1 - o, o), v(1 - o, 1 - o, 1 - o), v(1 - o, o, 1 - o), spriteGetter.apply(pattern.sprite()), pattern.rotation()));
+                quads.add(bakeQuadCenter(v(1 - o, o, o), v(1 - o, 1 - o, o), v(1 - o, 1 - o, 1 - o), v(1 - o, o, 1 - o), spriteGetter.apply(pattern.sprite()), pattern.rotation()));
             }
 
             if (west == CABLE) {
@@ -235,7 +225,7 @@ public class CableBakedModel implements IDynamicBakedModel {
                 quads.add(BakedModelHelper.bakeQuad(v(0, q, q), v(0, q, 1 - q), v(0, 1 - q, 1 - q), v(0, 1 - q, q), spriteSide));
             } else {
                 QuadSetting pattern = CablePatterns.findPattern(down, south, up, north);
-                quads.add(bakeQuadNormal(v(o, o, 1 - o), v(o, 1 - o, 1 - o), v(o, 1 - o, o), v(o, o, o), spriteGetter.apply(pattern.sprite()), pattern.rotation()));
+                quads.add(bakeQuadCenter(v(o, o, 1 - o), v(o, 1 - o, 1 - o), v(o, 1 - o, o), v(o, o, o), spriteGetter.apply(pattern.sprite()), pattern.rotation()));
             }
 
             if (north == CABLE) {
@@ -258,7 +248,7 @@ public class CableBakedModel implements IDynamicBakedModel {
                 quads.add(BakedModelHelper.bakeQuad(v(q, q, 0), v(q, 1 - q, 0), v(1 - q, 1 - q, 0), v(1 - q, q, 0), spriteSide));
             } else {
                 QuadSetting pattern = CablePatterns.findPattern(west, up, east, down);
-                quads.add(bakeQuadNormal(v(o, 1 - o, o), v(1 - o, 1 - o, o), v(1 - o, o, o), v(o, o, o), spriteGetter.apply(pattern.sprite()), pattern.rotation()));
+                quads.add(bakeQuadCenter(v(o, 1 - o, o), v(1 - o, 1 - o, o), v(1 - o, o, o), v(o, o, o), spriteGetter.apply(pattern.sprite()), pattern.rotation()));
             }
 
             if (south == CABLE) {
@@ -281,7 +271,7 @@ public class CableBakedModel implements IDynamicBakedModel {
                 quads.add(BakedModelHelper.bakeQuad(v(q, 1 - q, 1), v(q, q, 1), v(1 - q, q, 1), v(1 - q, 1 - q, 1), spriteSide));
             } else {
                 QuadSetting pattern = CablePatterns.findPattern(west, down, east, up);
-                quads.add(bakeQuadNormal(v(o, o, 1 - o), v(1 - o, o, 1 - o), v(1 - o, 1 - o, 1 - o), v(o, 1 - o, 1 - o), spriteGetter.apply(pattern.sprite()), pattern.rotation()));
+                quads.add(bakeQuadCenter(v(o, o, 1 - o), v(1 - o, o, 1 - o), v(1 - o, 1 - o, 1 - o), v(o, 1 - o, 1 - o), spriteGetter.apply(pattern.sprite()), pattern.rotation()));
             }
         }
 

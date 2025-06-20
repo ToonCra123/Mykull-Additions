@@ -53,12 +53,12 @@ public class CableBlock extends Block implements EntityBlock {
     private static final VoxelShape SHAPE_CABLE_UP = Shapes.box(0.3125, 0.6875, 0.3125, 0.6875, 1, 0.6875);
     private static final VoxelShape SHAPE_CABLE_DOWN = Shapes.box(0.3125, 0, 0.3125, 0.6875, 0.3125, 0.6875);
 
-    private static final VoxelShape SHAPE_BLOCK_NORTH = Shapes.box(.2, .2, 0, .8, .8, .1);
-    private static final VoxelShape SHAPE_BLOCK_SOUTH = Shapes.box(.2, .2, .9, .8, .8, 1);
-    private static final VoxelShape SHAPE_BLOCK_WEST = Shapes.box(0, .2, .2, .1, .8, .8);
-    private static final VoxelShape SHAPE_BLOCK_EAST = Shapes.box(.9, .2, .2, 1, .8, .8);
-    private static final VoxelShape SHAPE_BLOCK_UP = Shapes.box(.2, .9, .2, .8, 1, .8);
-    private static final VoxelShape SHAPE_BLOCK_DOWN = Shapes.box(.2, 0, .2, .8, .1, .8);
+    private static final VoxelShape SHAPE_BLOCK_NORTH = Shapes.box(.2, .2, 0, .8, .8, .25);
+    private static final VoxelShape SHAPE_BLOCK_SOUTH = Shapes.box(.2, .2, .75, .8, .8, 1);
+    private static final VoxelShape SHAPE_BLOCK_WEST = Shapes.box(0, .2, .2, .25, .8, .8);
+    private static final VoxelShape SHAPE_BLOCK_EAST = Shapes.box(.75, .2, .2, 1, .8, .8);
+    private static final VoxelShape SHAPE_BLOCK_UP = Shapes.box(.2, .75, .2, .8, 1, .8);
+    private static final VoxelShape SHAPE_BLOCK_DOWN = Shapes.box(.2, 0, .2, .8, .25, .8);
 
     public CableBlock(Properties properties) {
 

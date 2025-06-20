@@ -6,7 +6,8 @@ import org.checkerframework.checker.nullness.qual.NonNull;
 public enum ConnectorType implements StringRepresentable {
     NONE,
     CABLE,
-    BLOCK;
+    BLOCK,
+    BASIC_MODULE;
 
     public static final ConnectorType[] VALUES = values();
 
