@@ -22,6 +22,7 @@ import net.mykull.mykulladditions.common.blocks.SimpleBlock;
 import net.mykull.mykulladditions.common.blocks.machine.GeneratorBlock;
 import net.mykull.mykulladditions.common.cables.blocks.CableBlock;
 import net.mykull.mykulladditions.common.containers.GeneratorContainer;
+import net.mykull.mykulladditions.common.items.RadioactiveItem;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.common.extensions.IMenuTypeExtension;
 import net.neoforged.neoforge.registries.DeferredBlock;
@@ -82,6 +83,8 @@ public class Registration {
     // Items
     //public static final DeferredItem<Item> EXAMPLE_ITEM = ITEMS.registerSimpleItem("example_item", new Item.Properties().food(new FoodProperties.Builder()
     //        .alwaysEdible().nutrition(1).saturationModifier(2f).build()));
+    public static final DeferredItem<RadioactiveItem> RAW_URANIUM = ITEMS.register("raw_uranium",
+            () -> new RadioactiveItem(new Item.Properties(), 10));
 
     // Creative Tab
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> EXAMPLE_TAB = CREATIVE_MODE_TABS.register("example_tab", () -> CreativeModeTab.builder()
@@ -93,6 +96,7 @@ public class Registration {
                 output.accept(COMPLEX_BLOCK_ITEM.get());
                 output.accept(GENERATOR_BLOCK_ITEM.get());
                 output.accept(CABLE_BLOCK_ITEM.get());
+                output.accept(RAW_URANIUM.get());
             }).build());
 
     public static void init(IEventBus modEventBus) {

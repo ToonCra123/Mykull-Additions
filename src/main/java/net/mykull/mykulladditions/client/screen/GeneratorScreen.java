@@ -45,5 +45,7 @@ public class GeneratorScreen extends AbstractContainerScreen<GeneratorContainer>
             int power = menu.getPower();
             graphics.renderTooltip(this.font, Component.literal(power + " RF"), mousex, mousey);
         }
+
+        this.renderTooltip(graphics, mousex, mousey);
     }
 }

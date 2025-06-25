@@ -2,6 +2,7 @@ package net.mykull.mykulladditions.client;
 
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.mykull.mykulladditions.Registration;
+import net.mykull.mykulladditions.client.blockentityrenderer.CableBlockEntityRenderer;
 import net.mykull.mykulladditions.client.blockentityrenderer.ComplexBlockEntityRenderer;
 import net.mykull.mykulladditions.client.screen.GeneratorScreen;
 import net.mykull.mykulladditions.common.cables.client.CableModelLoader;
@@ -31,5 +32,6 @@ public class ClientSetup {
     @SubscribeEvent
     public static void initClient(EntityRenderersEvent.RegisterRenderers event) {
         event.registerBlockEntityRenderer(Registration.COMPLEX_BLOCK_ENTITY.get(), ComplexBlockEntityRenderer::new);
+        event.registerBlockEntityRenderer(Registration.CABLE_BLOCK_ENTITY.get(), CableBlockEntityRenderer::new);
     }
 }

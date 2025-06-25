@@ -1,9 +1,11 @@
 package net.mykull.mykulladditions;
 
-import net.mykull.mykulladditions.compat.TopCompatibility;
+import net.mykull.mykulladditions.compat.TOP.TopCompatibility;
 import net.mykull.mykulladditions.datagen.DataGeneration;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
+
+import net.neoforged.neoforge.client.event.RenderLevelStageEvent;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -33,6 +35,10 @@ public class MykullsAdditions {
         event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, Registration.GENERATOR_BLOCK_ENTITY.get(), (o, direction) -> o.getItemHandler());
         event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, Registration.GENERATOR_BLOCK_ENTITY.get(), (o, direction) -> o.getEnergyHandler());
         event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, Registration.CABLE_BLOCK_ENTITY.get(), (o, direction) -> o.getEnergyHandler());
+    }
+
+    private void registerRenderShit(RenderLevelStageEvent event) {
+
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
