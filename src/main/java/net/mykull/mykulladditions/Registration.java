@@ -5,10 +5,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.inventory.MenuType;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.CreativeModeTabs;
-import net.minecraft.world.item.Item;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -48,6 +45,7 @@ public class Registration {
 
     // Blocks
     //public static final DeferredBlock<Block> EXAMPLE_BLOCK = BLOCKS.registerSimpleBlock("example_block", BlockBehaviour.Properties.of().mapColor(MapColor.STONE));
+    public static final DeferredBlock<Block> URANIUM_ORE = BLOCKS.registerSimpleBlock("uranium_ore", BlockBehaviour.Properties.of().strength(3.5f).sound(SoundType.STONE));
     public static final DeferredBlock<SimpleBlock> SIMPLE_BLOCK = BLOCKS.registerBlock("simple_block", SimpleBlock::new, BlockBehaviour.Properties.of().strength(3.5f).requiresCorrectToolForDrops().sound(SoundType.METAL).randomTicks());
     public static final DeferredBlock<ComplexBlock> COMPLEX_BLOCK = BLOCKS.registerBlock("complex_block", ComplexBlock::new, BlockBehaviour.Properties.of().strength(3.5f).requiresCorrectToolForDrops().sound(SoundType.METAL));
     public static final DeferredBlock<GeneratorBlock> GENERATOR_BLOCK = BLOCKS.registerBlock("generator_block", GeneratorBlock::new, BlockBehaviour.Properties.of().strength(3.5f).requiresCorrectToolForDrops().sound(SoundType.METAL));
@@ -56,6 +54,8 @@ public class Registration {
 
     // Block Items
     //public static final DeferredItem<BlockItem> EXAMPLE_BLOCK_ITEM = ITEMS.registerSimpleBlockItem("example_block", EXAMPLE_BLOCK);
+    public static final DeferredItem<BlockItem> URANIUM_ORE_ITEM = ITEMS.register("uranium_ore",
+            () -> new BlockItem(URANIUM_ORE.get(), new Item.Properties()));
     public static final DeferredItem<BlockItem> SIMPLE_BLOCK_ITEM = ITEMS.register("simple_block",
             () -> new BlockItem(SIMPLE_BLOCK.get(), new Item.Properties()));
     public static final DeferredItem<BlockItem> COMPLEX_BLOCK_ITEM = ITEMS.register("complex_block",
@@ -85,6 +85,8 @@ public class Registration {
     //        .alwaysEdible().nutrition(1).saturationModifier(2f).build()));
     public static final DeferredItem<RadioactiveItem> RAW_URANIUM = ITEMS.register("raw_uranium",
             () -> new RadioactiveItem(new Item.Properties(), 10));
+    public static final DeferredItem<RadioactiveItem> URANIUM_INGOT = ITEMS.register("uranium_ingot",
+            () -> new RadioactiveItem(new Item.Properties(), 20));
 
     // Creative Tab
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> EXAMPLE_TAB = CREATIVE_MODE_TABS.register("example_tab", () -> CreativeModeTab.builder()
@@ -96,7 +98,9 @@ public class Registration {
                 output.accept(COMPLEX_BLOCK_ITEM.get());
                 output.accept(GENERATOR_BLOCK_ITEM.get());
                 output.accept(CABLE_BLOCK_ITEM.get());
+                output.accept(URANIUM_ORE_ITEM.get());
                 output.accept(RAW_URANIUM.get());
+                output.accept(URANIUM_INGOT.get());
             }).build());
 
     public static void init(IEventBus modEventBus) {

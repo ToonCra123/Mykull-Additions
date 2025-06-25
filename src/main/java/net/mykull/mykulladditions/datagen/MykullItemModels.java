@@ -13,10 +13,12 @@ public class MykullItemModels extends ItemModelProvider {
 
     @Override
     protected void registerModels() {
+        withExistingParent(Registration.URANIUM_ORE.getId().getPath(), modLoc("block/uranium_ore"));
         withExistingParent(Registration.SIMPLE_BLOCK.getId().getPath(), modLoc("block/simple_block"));
         withExistingParent(Registration.COMPLEX_BLOCK.getId().getPath(), modLoc("block/complex_block"));
         withExistingParent(Registration.GENERATOR_BLOCK.getId().getPath(), modLoc("block/generator_block_off"));
         withExistingParent(Registration.CABLE_BLOCK.getId().getPath(), modLoc("block/cable"));
         basicItem(Registration.RAW_URANIUM.get());
+        basicItem(Registration.URANIUM_INGOT.get());
     }
 }

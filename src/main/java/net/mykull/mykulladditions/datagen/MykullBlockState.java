@@ -72,6 +72,7 @@ public class MykullBlockState extends BlockStateProvider {
 
     @Override
     protected void registerStatesAndModels() {
+        simpleBlock(Registration.URANIUM_ORE.get());
         simpleBlock(Registration.COMPLEX_BLOCK.get());
         simpleBlock(Registration.SIMPLE_BLOCK.get());
         registerGenerator();
