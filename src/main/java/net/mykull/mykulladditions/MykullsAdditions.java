@@ -2,10 +2,12 @@ package net.mykull.mykulladditions;
 
 import net.mykull.mykulladditions.compat.TOP.TopCompatibility;
 import net.mykull.mykulladditions.datagen.DataGeneration;
+import net.mykull.mykulladditions.events.PlayerRadiationEvent;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 
 import net.neoforged.neoforge.client.event.RenderLevelStageEvent;
+import net.neoforged.neoforge.common.NeoForge;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -28,6 +30,8 @@ public class MykullsAdditions {
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::registerCapabilities);
         modEventBus.addListener(DataGeneration::generate);
+
+        NeoForge.EVENT_BUS.register(new PlayerRadiationEvent());
     }
 
     private void registerCapabilities(RegisterCapabilitiesEvent event) {
@@ -35,10 +39,6 @@ public class MykullsAdditions {
         event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, Registration.GENERATOR_BLOCK_ENTITY.get(), (o, direction) -> o.getItemHandler());
         event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, Registration.GENERATOR_BLOCK_ENTITY.get(), (o, direction) -> o.getEnergyHandler());
         event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, Registration.CABLE_BLOCK_ENTITY.get(), (o, direction) -> o.getEnergyHandler());
-    }
-
-    private void registerRenderShit(RenderLevelStageEvent event) {
-
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {

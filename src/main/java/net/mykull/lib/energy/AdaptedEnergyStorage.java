@@ -1,4 +1,4 @@
-package net.mykull.mykulladditions.common.energy;
+package net.mykull.lib.energy;
 
 import net.neoforged.neoforge.energy.IEnergyStorage;
 

@@ -1,0 +1,30 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:tag_empty",
+      "tag": "c:ingots/steel"
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "C": {
+      "tag": "c:storage_blocks/iron"
+    },
+    "G": {
+      "tag": "c:ingots/uranium"
+    },
+    "I": {
+      "tag": "c:storage_blocks/iron"
+    }
+  },
+  "pattern": [
+    "IGI",
+    "GCG",
+    "IGI"
+  ],
+  "result": {
+    "count": 1,
+    "id": "mykullsadditions:reactor_casing"
+  }
+}

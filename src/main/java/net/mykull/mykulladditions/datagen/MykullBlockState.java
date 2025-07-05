@@ -75,6 +75,8 @@ public class MykullBlockState extends BlockStateProvider {
         simpleBlock(Registration.URANIUM_ORE.get());
         simpleBlock(Registration.COMPLEX_BLOCK.get());
         simpleBlock(Registration.SIMPLE_BLOCK.get());
+        simpleBlock(Registration.REACTOR_CONTROLLER.get());
+        simpleBlock(Registration.REACTOR_CASING.get());
         registerGenerator();
         registerCable();
     }

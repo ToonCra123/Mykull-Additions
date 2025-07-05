@@ -1,10 +1,23 @@
 {
-  "itemGroup.mykullsadditions": "Example Mod Tab",
+  "itemGroup.mykullsadditions": "Mykull's Additions",
   "block.mykullsadditions.example_block": "Example Block",
   "item.mykullsadditions.example_item": "Example Item",
+
+
   "block.mykullsadditions.complex_block": "Complex Block",
   "block.mykullsadditions.simple_block": "Simple Block",
+
+
+
+  "block.mykullsadditions.uranium_ore": "Uranium Ore",
+  "item.mykullsadditions.raw_uranium": "Raw Uranium",
+  "item.mykullsadditions.uranium_ingot": "Uranium Ingot",
+
+
+
+
+  "mykullsadditions.screen.generator": "Generator",
   "block.mykullsadditions.generator_block": "Coal Generator",
-  "block.mykullsadditions.cable_block": "Energy Cable",
-  "mykullsadditions.screen.generator": "Generator"
+
+  "block.mykullsadditions.cable_block": "Energy Cable"
 }

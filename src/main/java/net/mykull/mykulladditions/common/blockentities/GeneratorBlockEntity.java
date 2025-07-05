@@ -10,7 +10,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.mykull.mykulladditions.Registration;
-import net.mykull.mykulladditions.common.energy.AdaptedEnergyStorage;
+import net.mykull.lib.energy.AdaptedEnergyStorage;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.common.util.Lazy;
 import net.neoforged.neoforge.energy.EnergyStorage;

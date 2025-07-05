@@ -1,8 +1,11 @@
 package net.mykull.mykulladditions;
 
+import com.mojang.serialization.Codec;
+import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.*;
@@ -20,12 +23,17 @@ import net.mykull.mykulladditions.common.blocks.machine.GeneratorBlock;
 import net.mykull.mykulladditions.common.cables.blocks.CableBlock;
 import net.mykull.mykulladditions.common.containers.GeneratorContainer;
 import net.mykull.mykulladditions.common.items.RadioactiveItem;
+import net.mykull.mykulladditions.multiblocks.reactor.ReactorControllerBlock;
+import net.mykull.mykulladditions.multiblocks.reactor.ReactorControllerBlockEntity;
+import net.mykull.mykulladditions.multiblocks.reactor.ReactorPartBlock;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.attachment.AttachmentType;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.capabilities.EntityCapability;
+import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.common.extensions.IMenuTypeExtension;
-import net.neoforged.neoforge.registries.DeferredBlock;
-import net.neoforged.neoforge.registries.DeferredHolder;
-import net.neoforged.neoforge.registries.DeferredItem;
-import net.neoforged.neoforge.registries.DeferredRegister;
+import net.neoforged.neoforge.registries.*;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Supplier;
 
@@ -41,6 +49,7 @@ public class Registration {
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(BuiltInRegistries.BLOCK_ENTITY_TYPE, MODID);
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
     public static final DeferredRegister<MenuType<?>> MENU_TYPES = DeferredRegister.create(BuiltInRegistries.MENU, MODID);
+    public static final DeferredRegister<AttachmentType<?>> ATTACHMENTS = DeferredRegister.create(NeoForgeRegistries.ATTACHMENT_TYPES, MODID);
 
 
     // Blocks
@@ -50,7 +59,8 @@ public class Registration {
     public static final DeferredBlock<ComplexBlock> COMPLEX_BLOCK = BLOCKS.registerBlock("complex_block", ComplexBlock::new, BlockBehaviour.Properties.of().strength(3.5f).requiresCorrectToolForDrops().sound(SoundType.METAL));
     public static final DeferredBlock<GeneratorBlock> GENERATOR_BLOCK = BLOCKS.registerBlock("generator_block", GeneratorBlock::new, BlockBehaviour.Properties.of().strength(3.5f).requiresCorrectToolForDrops().sound(SoundType.METAL));
     public static final DeferredBlock<CableBlock> CABLE_BLOCK = BLOCKS.registerBlock("cable_block", CableBlock::new, BlockBehaviour.Properties.of().strength(3.5f).requiresCorrectToolForDrops().sound(SoundType.METAL));
-
+    public static final DeferredBlock<ReactorPartBlock> REACTOR_CASING = BLOCKS.registerBlock("reactor_casing", ReactorPartBlock::new, BlockBehaviour.Properties.of().strength(3.5f).requiresCorrectToolForDrops().sound(SoundType.METAL));
+    public static final DeferredBlock<ReactorControllerBlock> REACTOR_CONTROLLER = BLOCKS.registerBlock("reactor_controller", ReactorControllerBlock::new, BlockBehaviour.Properties.of().strength(3.5f).requiresCorrectToolForDrops().sound(SoundType.METAL));
 
     // Block Items
     //public static final DeferredItem<BlockItem> EXAMPLE_BLOCK_ITEM = ITEMS.registerSimpleBlockItem("example_block", EXAMPLE_BLOCK);
@@ -64,6 +74,10 @@ public class Registration {
             () -> new BlockItem(GENERATOR_BLOCK.get(), new Item.Properties()));
     public static final DeferredItem<BlockItem> CABLE_BLOCK_ITEM = ITEMS.register("cable_block",
             () -> new BlockItem(CABLE_BLOCK.get(), new Item.Properties()));
+    public static final DeferredItem<BlockItem> REACTOR_CASING_ITEM = ITEMS.register("reactor_casing",
+            () -> new BlockItem(REACTOR_CASING.get(), new Item.Properties()));
+    public static final DeferredItem<BlockItem> REACTOR_CONTROLLER_ITEM = ITEMS.register("reactor_controller",
+            () -> new BlockItem(REACTOR_CONTROLLER.get(), new Item.Properties()));
 
 
     // Block Entities
@@ -73,6 +87,8 @@ public class Registration {
             () -> BlockEntityType.Builder.of(GeneratorBlockEntity::new, GENERATOR_BLOCK.get()).build(null));
     public static final Supplier<BlockEntityType<CableBlockEntity>> CABLE_BLOCK_ENTITY = BLOCK_ENTITIES.register("cable_block_entity",
             () -> BlockEntityType.Builder.of(CableBlockEntity::new, CABLE_BLOCK.get()).build(null));
+    public static final Supplier<BlockEntityType<ReactorControllerBlockEntity>> REACTOR_CONTROLLER_ENTITY = BLOCK_ENTITIES.register("reactor_controller_block_entity",
+            () -> BlockEntityType.Builder.of(ReactorControllerBlockEntity::new, REACTOR_CONTROLLER.get()).build(null));
 
 
     //menus
@@ -84,9 +100,9 @@ public class Registration {
     //public static final DeferredItem<Item> EXAMPLE_ITEM = ITEMS.registerSimpleItem("example_item", new Item.Properties().food(new FoodProperties.Builder()
     //        .alwaysEdible().nutrition(1).saturationModifier(2f).build()));
     public static final DeferredItem<RadioactiveItem> RAW_URANIUM = ITEMS.register("raw_uranium",
-            () -> new RadioactiveItem(new Item.Properties(), 10));
+            () -> new RadioactiveItem(new Item.Properties(), 1));
     public static final DeferredItem<RadioactiveItem> URANIUM_INGOT = ITEMS.register("uranium_ingot",
-            () -> new RadioactiveItem(new Item.Properties(), 20));
+            () -> new RadioactiveItem(new Item.Properties(), 2));
 
     // Creative Tab
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> EXAMPLE_TAB = CREATIVE_MODE_TABS.register("example_tab", () -> CreativeModeTab.builder()
@@ -98,10 +114,22 @@ public class Registration {
                 output.accept(COMPLEX_BLOCK_ITEM.get());
                 output.accept(GENERATOR_BLOCK_ITEM.get());
                 output.accept(CABLE_BLOCK_ITEM.get());
+
+                // Uranium
                 output.accept(URANIUM_ORE_ITEM.get());
                 output.accept(RAW_URANIUM.get());
                 output.accept(URANIUM_INGOT.get());
+
+                //Reactor
+                output.accept(REACTOR_CASING_ITEM.get());
+                output.accept(REACTOR_CONTROLLER_ITEM.get());
             }).build());
+
+    // ATTACHMENTS
+    public static final Supplier<AttachmentType<Integer>> RADIATION = ATTACHMENTS.register(
+            "radiation", () -> AttachmentType.builder(() -> 0).serialize(Codec.INT).build()
+    );
+
 
     public static void init(IEventBus modEventBus) {
         BLOCKS.register(modEventBus);
@@ -109,5 +137,6 @@ public class Registration {
         BLOCK_ENTITIES.register(modEventBus);
         MENU_TYPES.register(modEventBus);
         CREATIVE_MODE_TABS.register(modEventBus);
+        ATTACHMENTS.register(modEventBus);
     }
 }

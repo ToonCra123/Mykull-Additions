@@ -3,6 +3,8 @@ package net.mykull.mykulladditions.datagen;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
+import net.minecraft.tags.BlockTags;
+import net.neoforged.neoforge.common.data.BlockTagsProvider;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 
 import java.util.concurrent.CompletableFuture;
@@ -15,6 +17,7 @@ public class DataGeneration {
 
         generator.addProvider(event.includeClient(), new MykullBlockState(packOutput, event.getExistingFileHelper()));
         generator.addProvider(event.includeClient(), new MykullItemModels(packOutput, event.getExistingFileHelper()));
+
         //generator.addProvider(event.includeClient(), new TutLanguageProvider(packOutput, "en_us"));
 
         //TutBlockTags blockTags = new TutBlockTags(packOutput, lookupProvider, event.getExistingFileHelper());
