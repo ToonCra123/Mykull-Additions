@@ -16,7 +16,7 @@ public class ReactorControllerBlockEntity extends BlockEntity implements IReacto
     public boolean formed = false;
     public Set<BlockPos> casingPos = new HashSet<>();
 
-    public ReactorMBController reactorController;
+    public ReactorMBController reactorController = null;
 
 
     public ReactorControllerBlockEntity(BlockPos pos, BlockState blockState) {
@@ -27,6 +27,13 @@ public class ReactorControllerBlockEntity extends BlockEntity implements IReacto
 
     }
 
+    // Logic for adding controller
+    @Override
+    public void onLoad() {
+
+        super.onLoad();
+    }
+
     @Override
     public BlockPos getWorldPosition() {
         return worldPosition;
@@ -34,13 +41,11 @@ public class ReactorControllerBlockEntity extends BlockEntity implements IReacto
 
     @Override
     public void setController(MultiblockController controller) {
-        // Logic 3 cases
-        // case 1: All surrounding blocks have no controller
-        // case 2: surrounding block (1) has controller
-        // case 3: 2 or more blocks have controllers (merge)
-
-
+        if (controller instanceof ReactorMBController control) {
+            reactorController = control;
+        }
     }
+
 
     @Override
     public MultiblockController getController() {
