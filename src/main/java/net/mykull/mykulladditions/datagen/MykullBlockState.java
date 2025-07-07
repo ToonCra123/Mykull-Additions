@@ -25,10 +25,43 @@ public class MykullBlockState extends BlockStateProvider {
     public static final ResourceLocation TOP = ResourceLocation.fromNamespaceAndPath(MykullsAdditions.MODID, "block/complex_block");
     public static final ResourceLocation SIDE = ResourceLocation.fromNamespaceAndPath(MykullsAdditions.MODID, "block/complex_block");
 
+    public static final ResourceLocation CONTROL_ROD_TOP = ResourceLocation.fromNamespaceAndPath(MykullsAdditions.MODID, "block/reactor/control_rod");
+    public static final ResourceLocation CONTROL_ROD_SIDE = ResourceLocation.fromNamespaceAndPath(MykullsAdditions.MODID, "block/reactor/casing_corner");
+
+    public static final ResourceLocation FUEL_ROD_TOP = ResourceLocation.fromNamespaceAndPath(MykullsAdditions.MODID, "block/reactor/fuel_rod_top");
+    public static final ResourceLocation FUEL_ROD_SIDE = ResourceLocation.fromNamespaceAndPath(MykullsAdditions.MODID, "block/reactor/fuel_rod_side");
+
     public MykullBlockState(PackOutput output, ExistingFileHelper exFileHelper) {
         super(output, MykullsAdditions.MODID, exFileHelper);
     }
 
+    private void registerControlRod() {
+        simpleBlock(Registration.REACTOR_CONTROL_ROD.get(),
+                models().cube(
+                        "reactor_control_rod", // This is the model name — usually matches block ID
+                        CONTROL_ROD_TOP,
+                        CONTROL_ROD_TOP,
+                        CONTROL_ROD_SIDE,
+                        CONTROL_ROD_SIDE,
+                        CONTROL_ROD_SIDE,
+                        CONTROL_ROD_SIDE
+                ).texture("particle", CONTROL_ROD_SIDE)
+        );
+    }
+
+    private void registerFuelRod() {
+        simpleBlock(Registration.REACTOR_FUEL_ROD.get(),
+                models().cube(
+                        "reactor_fuel_rod", // This is the model name — usually matches block ID
+                        FUEL_ROD_TOP,
+                        FUEL_ROD_TOP,
+                        FUEL_ROD_SIDE,
+                        FUEL_ROD_SIDE,
+                        FUEL_ROD_SIDE,
+                        FUEL_ROD_SIDE
+                ).texture("particle", FUEL_ROD_SIDE)
+        );
+    }
 
 
     private void registerGenerator() {
@@ -75,10 +108,16 @@ public class MykullBlockState extends BlockStateProvider {
         simpleBlock(Registration.URANIUM_ORE.get());
         simpleBlock(Registration.COMPLEX_BLOCK.get());
         simpleBlock(Registration.SIMPLE_BLOCK.get());
+
+
         simpleBlock(Registration.REACTOR_CONTROLLER.get());
         simpleBlock(Registration.REACTOR_CASING.get());
+        registerControlRod();
+        registerFuelRod();
+
         registerGenerator();
         registerCable();
+
     }
 
 

@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "mykullsadditions:block/reactor/fuel_rod_top",
+    "east": "mykullsadditions:block/reactor/fuel_rod_side",
+    "north": "mykullsadditions:block/reactor/fuel_rod_side",
+    "particle": "mykullsadditions:block/reactor/fuel_rod_side",
+    "south": "mykullsadditions:block/reactor/fuel_rod_side",
+    "up": "mykullsadditions:block/reactor/fuel_rod_top",
+    "west": "mykullsadditions:block/reactor/fuel_rod_side"
+  }
+}

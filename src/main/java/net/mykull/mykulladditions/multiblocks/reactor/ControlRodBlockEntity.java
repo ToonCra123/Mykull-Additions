@@ -6,13 +6,13 @@ import net.mykull.mykulladditions.Registration;
 import net.mykull.mykulladditions.multiblocks.reactor.part.ReactorMultiblockPart;
 import net.mykull.mykulladditions.multiblocks.reactor.part.ReactorPartTypes;
 
-public class ReactorPartBlockEntity extends ReactorMultiblockPart {
-    public ReactorPartBlockEntity(BlockPos pos, BlockState blockState) {
-        super(Registration.REACTOR_CASINNG_ENTITY.get(), pos, blockState);
+public class ControlRodBlockEntity extends ReactorMultiblockPart {
+    public ControlRodBlockEntity(BlockPos pos, BlockState blockState) {
+        super(Registration.REACTOR_CONTROL_ROD_ENTITY.get(), pos, blockState);
     }
 
     @Override
     public ReactorPartTypes getPartType() {
-        return ReactorPartTypes.CASING;
+        return ReactorPartTypes.CONTROL_ROD;
     }
 }

@@ -23,10 +23,7 @@ import net.mykull.mykulladditions.common.blocks.machine.GeneratorBlock;
 import net.mykull.mykulladditions.common.cables.blocks.CableBlock;
 import net.mykull.mykulladditions.common.containers.GeneratorContainer;
 import net.mykull.mykulladditions.common.items.RadioactiveItem;
-import net.mykull.mykulladditions.multiblocks.reactor.ReactorControllerBlock;
-import net.mykull.mykulladditions.multiblocks.reactor.ReactorControllerBlockEntity;
-import net.mykull.mykulladditions.multiblocks.reactor.ReactorPartBlock;
-import net.mykull.mykulladditions.multiblocks.reactor.ReactorPartBlockEntity;
+import net.mykull.mykulladditions.multiblocks.reactor.*;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.attachment.AttachmentType;
 import net.neoforged.neoforge.common.extensions.IMenuTypeExtension;
@@ -58,6 +55,9 @@ public class Registration {
     public static final DeferredBlock<CableBlock> CABLE_BLOCK = BLOCKS.registerBlock("cable_block", CableBlock::new, BlockBehaviour.Properties.of().strength(3.5f).requiresCorrectToolForDrops().sound(SoundType.METAL));
     public static final DeferredBlock<ReactorPartBlock> REACTOR_CASING = BLOCKS.registerBlock("reactor_casing", ReactorPartBlock::new, BlockBehaviour.Properties.of().strength(3.5f).requiresCorrectToolForDrops().sound(SoundType.METAL));
     public static final DeferredBlock<ReactorControllerBlock> REACTOR_CONTROLLER = BLOCKS.registerBlock("reactor_controller", ReactorControllerBlock::new, BlockBehaviour.Properties.of().strength(3.5f).requiresCorrectToolForDrops().sound(SoundType.METAL));
+    public static final DeferredBlock<ControlRodBlock> REACTOR_CONTROL_ROD = BLOCKS.registerBlock("reactor_control_rod", ControlRodBlock::new, BlockBehaviour.Properties.of().strength(3.5f).requiresCorrectToolForDrops().sound(SoundType.METAL));
+    public static final DeferredBlock<FuelRodBlock> REACTOR_FUEL_ROD = BLOCKS.registerBlock("reactor_fuel_rod", FuelRodBlock::new, BlockBehaviour.Properties.of().strength(3.5f).requiresCorrectToolForDrops().sound(SoundType.METAL));
+
 
     // Block Items
     //public static final DeferredItem<BlockItem> EXAMPLE_BLOCK_ITEM = ITEMS.registerSimpleBlockItem("example_block", EXAMPLE_BLOCK);
@@ -73,8 +73,12 @@ public class Registration {
             () -> new BlockItem(CABLE_BLOCK.get(), new Item.Properties()));
     public static final DeferredItem<BlockItem> REACTOR_CASING_ITEM = ITEMS.register("reactor_casing",
             () -> new BlockItem(REACTOR_CASING.get(), new Item.Properties()));
+    public static final DeferredItem<BlockItem> REACTOR_CONTROL_ROD_ITEM = ITEMS.register("reactor_control_rod",
+            () -> new BlockItem(REACTOR_CONTROL_ROD.get(), new Item.Properties()));
     public static final DeferredItem<BlockItem> REACTOR_CONTROLLER_ITEM = ITEMS.register("reactor_controller",
             () -> new BlockItem(REACTOR_CONTROLLER.get(), new Item.Properties()));
+    public static final DeferredItem<BlockItem> REACTOR_FUEL_ROD_ITEM = ITEMS.register("reactor_fuel_rod",
+            () -> new BlockItem(REACTOR_FUEL_ROD.get(), new Item.Properties()));
 
 
     // Block Entities
@@ -88,6 +92,10 @@ public class Registration {
             () -> BlockEntityType.Builder.of(ReactorControllerBlockEntity::new, REACTOR_CONTROLLER.get()).build(null));
     public static final Supplier<BlockEntityType<ReactorPartBlockEntity>> REACTOR_CASINNG_ENTITY = BLOCK_ENTITIES.register("reactor_casing_block_entity",
             () -> BlockEntityType.Builder.of(ReactorPartBlockEntity::new, REACTOR_CASING.get()).build(null));
+    public static final Supplier<BlockEntityType<ControlRodBlockEntity>> REACTOR_CONTROL_ROD_ENTITY = BLOCK_ENTITIES.register("reactor_control_rod_block_entity",
+            () -> BlockEntityType.Builder.of(ControlRodBlockEntity::new, REACTOR_CONTROL_ROD.get()).build(null));
+    public static final Supplier<BlockEntityType<FuelRodBlockEntity>> REACTOR_FUEL_ROD_ENTITY = BLOCK_ENTITIES.register("reactor_fuel_rod_block_entity",
+            () -> BlockEntityType.Builder.of(FuelRodBlockEntity::new, REACTOR_FUEL_ROD.get()).build(null));
 
 
     //menus
@@ -122,6 +130,7 @@ public class Registration {
                 //Reactor
                 output.accept(REACTOR_CASING_ITEM.get());
                 output.accept(REACTOR_CONTROLLER_ITEM.get());
+                output.accept(REACTOR_CONTROL_ROD_ITEM.get());
             }).build());
 
     // ATTACHMENTS

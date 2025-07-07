@@ -32,8 +32,10 @@ public class ReactorControllerBlock extends Block implements EntityBlock {
             BlockEntity be = level.getBlockEntity(pos);
 
             if(be instanceof ReactorMultiblockPart reactor) {
-                if (reactor.getController() instanceof ReactorMBController r)
-                    MykullsAdditions.LOGGER.debug("Position of bottom left {} {} {}", r.getBBleft().getX(), r.getBBleft().getY(), r.getBBleft().getZ());
+                if (reactor.getController() instanceof ReactorMBController r) {
+                    MykullsAdditions.LOGGER.debug("Size of multiblock Width: {} Depth: {} Height: {}", r.getWidth(), r.getDepth(), r.getHeight());
+                    MykullsAdditions.LOGGER.debug("Formed State: {}", r.formed);
+                }
             }
         }
         return super.useWithoutItem(state, level, pos, player, hitResult);

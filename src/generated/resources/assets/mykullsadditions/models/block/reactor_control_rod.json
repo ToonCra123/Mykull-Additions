@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "mykullsadditions:block/reactor/control_rod",
+    "east": "mykullsadditions:block/reactor/casing_corner",
+    "north": "mykullsadditions:block/reactor/casing_corner",
+    "particle": "mykullsadditions:block/reactor/casing_corner",
+    "south": "mykullsadditions:block/reactor/casing_corner",
+    "up": "mykullsadditions:block/reactor/control_rod",
+    "west": "mykullsadditions:block/reactor/casing_corner"
+  }
+}

@@ -21,17 +21,4 @@ public class ReactorPartBlock extends Block implements EntityBlock {
     public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new ReactorPartBlockEntity(pos, state);
     }
-
-    @Override
-    protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
-        if (player instanceof ServerPlayer sp) {
-            BlockEntity be = level.getBlockEntity(pos);
-
-            if(be instanceof ReactorMultiblockPart reactor) {
-                if (reactor.getController() instanceof ReactorMBController r)
-                    System.out.println(r.getSize());
-            }
-        }
-        return InteractionResult.SUCCESS;
-    }
 }

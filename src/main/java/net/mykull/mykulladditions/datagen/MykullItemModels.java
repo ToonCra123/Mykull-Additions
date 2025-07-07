@@ -20,6 +20,8 @@ public class MykullItemModels extends ItemModelProvider {
         withExistingParent(Registration.CABLE_BLOCK.getId().getPath(), modLoc("block/cable"));
         withExistingParent(Registration.REACTOR_CONTROLLER.getId().getPath(), modLoc("block/reactor_controller"));
         withExistingParent(Registration.REACTOR_CASING.getId().getPath(), modLoc("block/reactor_casing"));
+        withExistingParent(Registration.REACTOR_CONTROL_ROD.getId().getPath(), modLoc("block/reactor_control_rod"));
+        withExistingParent(Registration.REACTOR_FUEL_ROD.getId().getPath(), modLoc("block/reactor_fuel_rod"));
         basicItem(Registration.RAW_URANIUM.get());
         basicItem(Registration.URANIUM_INGOT.get());
     }

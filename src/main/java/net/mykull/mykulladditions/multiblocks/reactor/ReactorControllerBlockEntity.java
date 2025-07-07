@@ -4,7 +4,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.state.BlockState;
 import net.mykull.mykulladditions.Registration;
 import net.mykull.mykulladditions.multiblocks.reactor.part.ReactorMultiblockPart;
-import net.mykull.mykulladditions.multiblocks.reactor.part.ReactorPartEnum;
+import net.mykull.mykulladditions.multiblocks.reactor.part.ReactorPartTypes;
 
 public class ReactorControllerBlockEntity extends ReactorMultiblockPart {
     public ReactorControllerBlockEntity(BlockPos pos, BlockState blockState) {
@@ -12,7 +12,7 @@ public class ReactorControllerBlockEntity extends ReactorMultiblockPart {
     }
 
     @Override
-    public ReactorPartEnum getPartType() {
-        return ReactorPartEnum.CONTROLLER;
+    public ReactorPartTypes getPartType() {
+        return ReactorPartTypes.CONTROLLER;
     }
 }
