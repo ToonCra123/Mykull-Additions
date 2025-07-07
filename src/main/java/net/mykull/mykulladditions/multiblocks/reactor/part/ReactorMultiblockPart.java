@@ -6,9 +6,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.mykull.lib.multiblock.MultiblockController;
-import net.mykull.mykulladditions.multiblocks.reactor.ReactorControllerBlockEntity;
 import net.mykull.mykulladditions.multiblocks.reactor.ReactorMBController;
-import net.mykull.mykulladditions.multiblocks.reactor.ReactorPartBlock;
 
 import java.util.Comparator;
 import java.util.HashSet;

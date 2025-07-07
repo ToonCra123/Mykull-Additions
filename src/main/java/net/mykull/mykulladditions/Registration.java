@@ -1,19 +1,15 @@
 package net.mykull.mykulladditions;
 
 import com.mojang.serialization.Codec;
-import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.material.MapColor;
 import net.mykull.mykulladditions.common.blockentities.CableBlockEntity;
 import net.mykull.mykulladditions.common.blockentities.ComplexBlockEntity;
 import net.mykull.mykulladditions.common.blockentities.GeneratorBlockEntity;
@@ -53,7 +49,7 @@ public class Registration {
     public static final DeferredBlock<ComplexBlock> COMPLEX_BLOCK = BLOCKS.registerBlock("complex_block", ComplexBlock::new, BlockBehaviour.Properties.of().strength(3.5f).requiresCorrectToolForDrops().sound(SoundType.METAL));
     public static final DeferredBlock<GeneratorBlock> GENERATOR_BLOCK = BLOCKS.registerBlock("generator_block", GeneratorBlock::new, BlockBehaviour.Properties.of().strength(3.5f).requiresCorrectToolForDrops().sound(SoundType.METAL));
     public static final DeferredBlock<CableBlock> CABLE_BLOCK = BLOCKS.registerBlock("cable_block", CableBlock::new, BlockBehaviour.Properties.of().strength(3.5f).requiresCorrectToolForDrops().sound(SoundType.METAL));
-    public static final DeferredBlock<ReactorPartBlock> REACTOR_CASING = BLOCKS.registerBlock("reactor_casing", ReactorPartBlock::new, BlockBehaviour.Properties.of().strength(3.5f).requiresCorrectToolForDrops().sound(SoundType.METAL));
+    public static final DeferredBlock<ReactorCasingBlock> REACTOR_CASING = BLOCKS.registerBlock("reactor_casing", ReactorCasingBlock::new, BlockBehaviour.Properties.of().strength(3.5f).requiresCorrectToolForDrops().sound(SoundType.METAL));
     public static final DeferredBlock<ReactorControllerBlock> REACTOR_CONTROLLER = BLOCKS.registerBlock("reactor_controller", ReactorControllerBlock::new, BlockBehaviour.Properties.of().strength(3.5f).requiresCorrectToolForDrops().sound(SoundType.METAL));
     public static final DeferredBlock<ControlRodBlock> REACTOR_CONTROL_ROD = BLOCKS.registerBlock("reactor_control_rod", ControlRodBlock::new, BlockBehaviour.Properties.of().strength(3.5f).requiresCorrectToolForDrops().sound(SoundType.METAL));
     public static final DeferredBlock<FuelRodBlock> REACTOR_FUEL_ROD = BLOCKS.registerBlock("reactor_fuel_rod", FuelRodBlock::new, BlockBehaviour.Properties.of().strength(3.5f).requiresCorrectToolForDrops().sound(SoundType.METAL));
@@ -90,8 +86,8 @@ public class Registration {
             () -> BlockEntityType.Builder.of(CableBlockEntity::new, CABLE_BLOCK.get()).build(null));
     public static final Supplier<BlockEntityType<ReactorControllerBlockEntity>> REACTOR_CONTROLLER_ENTITY = BLOCK_ENTITIES.register("reactor_controller_block_entity",
             () -> BlockEntityType.Builder.of(ReactorControllerBlockEntity::new, REACTOR_CONTROLLER.get()).build(null));
-    public static final Supplier<BlockEntityType<ReactorPartBlockEntity>> REACTOR_CASINNG_ENTITY = BLOCK_ENTITIES.register("reactor_casing_block_entity",
-            () -> BlockEntityType.Builder.of(ReactorPartBlockEntity::new, REACTOR_CASING.get()).build(null));
+    public static final Supplier<BlockEntityType<ReactorCasingBlockEntity>> REACTOR_CASINNG_ENTITY = BLOCK_ENTITIES.register("reactor_casing_block_entity",
+            () -> BlockEntityType.Builder.of(ReactorCasingBlockEntity::new, REACTOR_CASING.get()).build(null));
     public static final Supplier<BlockEntityType<ControlRodBlockEntity>> REACTOR_CONTROL_ROD_ENTITY = BLOCK_ENTITIES.register("reactor_control_rod_block_entity",
             () -> BlockEntityType.Builder.of(ControlRodBlockEntity::new, REACTOR_CONTROL_ROD.get()).build(null));
     public static final Supplier<BlockEntityType<FuelRodBlockEntity>> REACTOR_FUEL_ROD_ENTITY = BLOCK_ENTITIES.register("reactor_fuel_rod_block_entity",

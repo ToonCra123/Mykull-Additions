@@ -15,4 +15,15 @@ public class ReactorControllerBlockEntity extends ReactorMultiblockPart {
     public ReactorPartTypes getPartType() {
         return ReactorPartTypes.CONTROLLER;
     }
+
+    public void tickServer() {
+        if (reactorController == null) return;
+        if (!reactorController.formed) return;
+
+        if (reactorController.logic == null) {
+            reactorController.logic = new ReactorMBLogic();
+        }
+
+        reactorController.logic.tick();
+    }
 }

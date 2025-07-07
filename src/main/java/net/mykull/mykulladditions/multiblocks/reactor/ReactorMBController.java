@@ -17,6 +17,8 @@ import java.util.Set;
 // TODO: ABSTRACT INTO CUBIODMULTIBLOCK CLASS
 public class ReactorMBController extends MultiblockController {
 
+    public ReactorMBLogic logic = null;
+
     public static final Set<Block> VALID_INTERIOR_BLOCKS = Set.of(Blocks.AIR, Registration.REACTOR_FUEL_ROD.get());
 
     private final Set<BlockPos> controllerList = new HashSet<>();

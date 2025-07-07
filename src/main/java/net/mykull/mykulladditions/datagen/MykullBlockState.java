@@ -10,6 +10,8 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.mykull.mykulladditions.MykullsAdditions;
 import net.mykull.mykulladditions.Registration;
 import net.mykull.mykulladditions.common.cables.client.CableModelLoader;
+import net.mykull.mykulladditions.multiblocks.reactor.ReactorCasingBlock;
+import net.mykull.mykulladditions.multiblocks.reactor.states.CasingBlockStateTypes;
 import net.neoforged.neoforge.client.model.generators.*;
 import net.neoforged.neoforge.client.model.generators.BlockModelBuilder;
 import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
@@ -63,7 +65,6 @@ public class MykullBlockState extends BlockStateProvider {
         );
     }
 
-
     private void registerGenerator() {
         BlockModelBuilder modelOn = models().cube(Registration.GENERATOR_BLOCK.getId().getPath()+"_on", BOTTOM, TOP, modLoc("block/generator_front_on"), SIDE, SIDE, SIDE).texture("particle", SIDE);
         BlockModelBuilder modelOff = models().cube(Registration.GENERATOR_BLOCK.getId().getPath()+"_off", BOTTOM, TOP, modLoc("block/generator_front_off"), SIDE, SIDE, SIDE).texture("particle", SIDE);
@@ -111,7 +112,6 @@ public class MykullBlockState extends BlockStateProvider {
 
 
         simpleBlock(Registration.REACTOR_CONTROLLER.get());
-        simpleBlock(Registration.REACTOR_CASING.get());
         registerControlRod();
         registerFuelRod();
 

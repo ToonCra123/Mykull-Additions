@@ -1,0 +1,9 @@
+{
+  "variants": {
+    "casing_type=horizontal": { "model": "mykullsadditions:block/reactor/reactor_casing_horizontal" },
+    "casing_type=vertical": { "model": "mykullsadditions:block/reactor/reactor_casing_vertical" },
+    "casing_type=corner": { "model": "mykullsadditions:block/reactor/reactor_casing_corner" },
+    "casing_type=none": { "model": "mykullsadditions:block/reactor/reactor_casing_none" },
+    "casing_type=unformed": { "model": "mykullsadditions:block/reactor/reactor_casing_unformed" }
+  }
+}

@@ -8,9 +8,12 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.mykull.mykulladditions.MykullsAdditions;
+import net.mykull.mykulladditions.common.blockentities.GeneratorBlockEntity;
 import net.mykull.mykulladditions.multiblocks.reactor.part.ReactorMultiblockPart;
 import org.jetbrains.annotations.Nullable;
 
@@ -23,6 +26,19 @@ public class ReactorControllerBlock extends Block implements EntityBlock {
     @Override
     public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new ReactorControllerBlockEntity(pos, state);
+    }
+
+    @Override
+    public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
+        if (level.isClientSide) {
+            return null;
+        } else {
+            return (lvl, pos, st, be) -> {
+                if (be instanceof ReactorControllerBlockEntity controllerBlockEntity) {
+                    controllerBlockEntity.tickServer();
+                }
+            };
+        }
     }
 
     @Override

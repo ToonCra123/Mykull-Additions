@@ -6,8 +6,8 @@ import net.mykull.mykulladditions.Registration;
 import net.mykull.mykulladditions.multiblocks.reactor.part.ReactorMultiblockPart;
 import net.mykull.mykulladditions.multiblocks.reactor.part.ReactorPartTypes;
 
-public class ReactorPartBlockEntity extends ReactorMultiblockPart {
-    public ReactorPartBlockEntity(BlockPos pos, BlockState blockState) {
+public class ReactorCasingBlockEntity extends ReactorMultiblockPart {
+    public ReactorCasingBlockEntity(BlockPos pos, BlockState blockState) {
         super(Registration.REACTOR_CASINNG_ENTITY.get(), pos, blockState);
     }
 
