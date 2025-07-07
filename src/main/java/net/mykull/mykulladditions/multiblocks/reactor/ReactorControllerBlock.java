@@ -1,7 +1,6 @@
 package net.mykull.mykulladditions.multiblocks.reactor;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -11,10 +10,9 @@ import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
+import net.mykull.mykulladditions.MykullsAdditions;
+import net.mykull.mykulladditions.multiblocks.reactor.part.ReactorMultiblockPart;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.HashSet;
-import java.util.Set;
 
 public class ReactorControllerBlock extends Block implements EntityBlock {
 
@@ -31,15 +29,11 @@ public class ReactorControllerBlock extends Block implements EntityBlock {
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
 
         if (player instanceof ServerPlayer sp) {
-
             BlockEntity be = level.getBlockEntity(pos);
 
-            if(be != null && be instanceof ReactorControllerBlockEntity reactor) {
-                if (reactor.formed) {
-                    sp.sendSystemMessage(Component.literal("Reactor is formed"));
-                } else {
-                    sp.sendSystemMessage(Component.literal("Reactor is not formed"));
-                }
+            if(be instanceof ReactorMultiblockPart reactor) {
+                if (reactor.getController() instanceof ReactorMBController r)
+                    MykullsAdditions.LOGGER.debug("Position of bottom left {} {} {}", r.getBBleft().getX(), r.getBBleft().getY(), r.getBBleft().getZ());
             }
         }
         return super.useWithoutItem(state, level, pos, player, hitResult);

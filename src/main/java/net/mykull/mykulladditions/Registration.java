@@ -26,14 +26,11 @@ import net.mykull.mykulladditions.common.items.RadioactiveItem;
 import net.mykull.mykulladditions.multiblocks.reactor.ReactorControllerBlock;
 import net.mykull.mykulladditions.multiblocks.reactor.ReactorControllerBlockEntity;
 import net.mykull.mykulladditions.multiblocks.reactor.ReactorPartBlock;
+import net.mykull.mykulladditions.multiblocks.reactor.ReactorPartBlockEntity;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.attachment.AttachmentType;
-import net.neoforged.neoforge.capabilities.Capabilities;
-import net.neoforged.neoforge.capabilities.EntityCapability;
-import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.common.extensions.IMenuTypeExtension;
 import net.neoforged.neoforge.registries.*;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Supplier;
 
@@ -89,6 +86,8 @@ public class Registration {
             () -> BlockEntityType.Builder.of(CableBlockEntity::new, CABLE_BLOCK.get()).build(null));
     public static final Supplier<BlockEntityType<ReactorControllerBlockEntity>> REACTOR_CONTROLLER_ENTITY = BLOCK_ENTITIES.register("reactor_controller_block_entity",
             () -> BlockEntityType.Builder.of(ReactorControllerBlockEntity::new, REACTOR_CONTROLLER.get()).build(null));
+    public static final Supplier<BlockEntityType<ReactorPartBlockEntity>> REACTOR_CASINNG_ENTITY = BLOCK_ENTITIES.register("reactor_casing_block_entity",
+            () -> BlockEntityType.Builder.of(ReactorPartBlockEntity::new, REACTOR_CASING.get()).build(null));
 
 
     //menus
