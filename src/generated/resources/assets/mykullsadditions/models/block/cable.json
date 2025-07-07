@@ -1,4 +1,4 @@
 {
-  "parent": "minecraft:block/cube",
+  "type": "energy",
   "loader": "mykullsadditions:cableloader"
 }

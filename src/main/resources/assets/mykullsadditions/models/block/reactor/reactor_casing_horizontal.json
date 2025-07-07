@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "mykullsadditions:block/reactor/casing_side_vert",
+    "east": "mykullsadditions:block/reactor/casing_side",
+    "north": "mykullsadditions:block/reactor/casing_none",
+    "particle": "mykullsadditions:block/reactor/casing_none",
+    "south": "mykullsadditions:block/reactor/casing_none",
+    "up": "mykullsadditions:block/reactor/casing_side_vert",
+    "west": "mykullsadditions:block/reactor/casing_side"
+  }
+}

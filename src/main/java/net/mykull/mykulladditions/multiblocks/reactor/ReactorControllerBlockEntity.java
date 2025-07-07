@@ -21,7 +21,7 @@ public class ReactorControllerBlockEntity extends ReactorMultiblockPart {
         if (!reactorController.formed) return;
 
         if (reactorController.logic == null) {
-            reactorController.logic = new ReactorMBLogic();
+            reactorController.logic = new ReactorMBLogic(reactorController);
         }
 
         reactorController.logic.tick();

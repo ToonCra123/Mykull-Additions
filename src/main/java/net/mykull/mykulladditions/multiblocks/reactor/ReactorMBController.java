@@ -5,11 +5,14 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import net.mykull.lib.multiblock.IMultiblockPart;
 import net.mykull.lib.multiblock.MultiblockController;
 import net.mykull.mykulladditions.MykullsAdditions;
 import net.mykull.mykulladditions.Registration;
 import net.mykull.mykulladditions.multiblocks.reactor.part.ReactorPartTypes;
+import net.mykull.mykulladditions.multiblocks.reactor.states.CasingBlockStateTypes;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -36,20 +39,70 @@ public class ReactorMBController extends MultiblockController {
         super(level);
     }
 
-    @Override
-    public boolean attachBlock(IMultiblockPart part) {
-        BlockPos partPos = part.getWorldPosition();
-
-        // first block
-        if (topRightBB == null && bottomLeftBB == null) {
-            topRightBB = bottomLeftBB = partPos;
-        }
-
-        return super.attachBlock(part);
-    }
-
     public int getSize() {
         return parts.size();
+    }
+
+    private void updateBlockStatesUnformed() {
+        for (BlockPos pos : casingList) {
+            BlockState currentState = world.getBlockState(pos);
+            BlockState newState = currentState.setValue(ReactorCasingBlock.CASING_TYPE, CasingBlockStateTypes.UNFORMED);
+            world.setBlock(pos, newState, Block.UPDATE_ALL);
+        }
+    }
+
+    private void updateBlockStatesFormed() {
+
+        int minX = bottomLeftBB.getX();
+        int minY = bottomLeftBB.getY();
+        int minZ = bottomLeftBB.getZ();
+        int maxX = topRightBB.getX();
+        int maxY = topRightBB.getY();
+        int maxZ = topRightBB.getZ();
+
+        for (BlockPos pos : casingList) {
+            BlockState currentState = world.getBlockState(pos);
+            if (currentState.getBlock() != Registration.REACTOR_CASING.get()) continue;
+
+            int boundsHit = 0;
+            if (pos.getX() == minX || pos.getX() == maxX) boundsHit++;
+            if (pos.getY() == minY || pos.getY() == maxY) boundsHit++;
+            if (pos.getZ() == minZ || pos.getZ() == maxZ) boundsHit++;
+
+            boolean isCorner = (boundsHit == 3);
+            boolean isEdge = (boundsHit == 2);
+            boolean isFace = (boundsHit == 1);
+
+            if (isCorner) {
+                BlockState newState = currentState.setValue(ReactorCasingBlock.CASING_TYPE, CasingBlockStateTypes.CORNER);
+                world.setBlock(pos, newState, Block.UPDATE_ALL);
+            } else if (isFace) {
+                BlockState newState = currentState.setValue(ReactorCasingBlock.CASING_TYPE, CasingBlockStateTypes.NONE);
+                world.setBlock(pos, newState, Block.UPDATE_ALL);
+            } else if (isEdge) {
+                boolean xEdge = pos.getX() == minX || pos.getX() == maxX;
+                boolean yEdge = pos.getY() == minY || pos.getY() == maxY;
+                boolean zEdge = pos.getZ() == minZ || pos.getZ() == maxZ;
+
+                CasingBlockStateTypes casingType = getCasingBlockStateTypes(xEdge, zEdge, yEdge);
+
+                BlockState newState = currentState.setValue(ReactorCasingBlock.CASING_TYPE, casingType);
+                world.setBlock(pos, newState, Block.UPDATE_ALL);
+            }
+        }
+    }
+
+    private static @NotNull CasingBlockStateTypes getCasingBlockStateTypes(boolean xEdge, boolean zEdge, boolean yEdge) {
+        // Determine the axis the edge runs along
+        if (!xEdge) {
+            return CasingBlockStateTypes.HORIZONTAL_WE; // Edge runs along X (West-East)
+        } else if (!zEdge) {
+            return CasingBlockStateTypes.HORIZONTAL_NS; // Edge runs along Z (North-South)
+        } else if (!yEdge) {
+            return CasingBlockStateTypes.VERTICAL;       // Edge runs vertically
+        } else {
+            return CasingBlockStateTypes.NONE; // Fallback (shouldn’t happen if edge)
+        }
     }
 
 
@@ -90,25 +143,21 @@ public class ReactorMBController extends MultiblockController {
 
                     if (isEdge || isCorner) {
                         if (!casingList.contains(pos)) {
-                            MykullsAdditions.LOGGER.debug("Missing edge casing at: {}", pos);
                             return false;
                         }
                     } else if(isFace) {
                         // Up Face case
                         if(y == maxY) {
                             if (!casingList.contains(pos) && !controlRodList.contains(pos)) {
-                                MykullsAdditions.LOGGER.debug("Missing Up Face casing at: {}", pos);
                                 return false;
                             }
                         } else {
                             if(!casingList.contains(pos) && !controllerList.contains(pos)) {
-                                MykullsAdditions.LOGGER.debug("Missing face casing at: {}", pos);
                                 return false;
                             }
                         }
                     } else if (isInside) {
                         if(!VALID_INTERIOR_BLOCKS.contains(world.getBlockState(pos).getBlock())) {
-                            MykullsAdditions.LOGGER.debug("Invalid Interior Block at: {}", pos);
                             return false;
                         }
                     }
@@ -120,7 +169,6 @@ public class ReactorMBController extends MultiblockController {
             for (Direction dir : Direction.Plane.HORIZONTAL) {
                 BlockPos neighbor = pos.relative(dir);
                 if (controlRodList.contains(neighbor)) {
-                    MykullsAdditions.LOGGER.debug("Control rods at {} and {} are adjacent!", pos, neighbor);
                     return false;
                 }
             }
@@ -139,7 +187,6 @@ public class ReactorMBController extends MultiblockController {
                 Block block = world.getBlockState(checkPos).getBlock();
 
                 if (block != Registration.REACTOR_FUEL_ROD.get()) {
-                    MykullsAdditions.LOGGER.debug("Control rod not extending to base: {}", checkPos);
                     return false;
                 }
             }
@@ -192,6 +239,13 @@ public class ReactorMBController extends MultiblockController {
 
         // IDK this may be a bad thinng to add
         formed = isMachineWhole();
+
+        if(formed) {
+            updateBlockStatesFormed();
+        } else {
+            updateBlockStatesUnformed();
+        }
+
         super.onBlockAdded(part);
     }
 
@@ -207,6 +261,12 @@ public class ReactorMBController extends MultiblockController {
         }
         recalculateBoundingBox();
         formed = isMachineWhole();
+
+        if (formed) {
+            updateBlockStatesFormed();
+        } else {
+            updateBlockStatesUnformed();
+        }
     }
 
     public int getWidth() {

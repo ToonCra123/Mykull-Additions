@@ -29,16 +29,23 @@ public class CableModelLoader implements IGeometryLoader<CableModelLoader.CableM
 
     @Override
     public CableModelGeometry read(JsonObject jsonObject, JsonDeserializationContext deserializationContext) throws JsonParseException {
-        return new CableModelGeometry();
+        String type = "energy"; // default
+        if (jsonObject.has("type")) {
+            type = jsonObject.get("type").getAsString();
+        }
+        return new CableModelGeometry(type);
     }
 
     public static class CableModelGeometry implements IUnbakedGeometry<CableModelGeometry> {
-        public CableModelGeometry() {
+        private final String type;
+
+        public CableModelGeometry(String type) {
+            this.type = type;
         }
 
         @Override
         public BakedModel bake(IGeometryBakingContext context, ModelBaker baker, Function<Material, TextureAtlasSprite> spriteGetter, ModelState modelState, ItemOverrides overrides) {
-            return new CableBakedModel(context, "energy");
+            return new CableBakedModel(context, type);
         }
     }
 }

@@ -5,7 +5,8 @@ import net.minecraft.util.StringRepresentable;
 import java.util.Locale;
 
 public enum CasingBlockStateTypes implements StringRepresentable {
-    HORIZONTAL,
+    HORIZONTAL_NS,
+    HORIZONTAL_WE,
     VERTICAL,
     CORNER,
     NONE,

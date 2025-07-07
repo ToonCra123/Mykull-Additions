@@ -10,8 +10,6 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.mykull.mykulladditions.MykullsAdditions;
 import net.mykull.mykulladditions.Registration;
 import net.mykull.mykulladditions.common.cables.client.CableModelLoader;
-import net.mykull.mykulladditions.multiblocks.reactor.ReactorCasingBlock;
-import net.mykull.mykulladditions.multiblocks.reactor.states.CasingBlockStateTypes;
 import net.neoforged.neoforge.client.model.generators.*;
 import net.neoforged.neoforge.client.model.generators.BlockModelBuilder;
 import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
@@ -95,10 +93,9 @@ public class MykullBlockState extends BlockStateProvider {
         }
     }
 
-    private void registerCable() {
+    private void registerEnergyCable() {
         BlockModelBuilder model = models().getBuilder("cable")
-                .parent(models().getExistingFile(mcLoc("cube")))
-                .customLoader((builder, helper) -> new CableLoaderBuilder(CableModelLoader.GENERATOR_LOADER, builder, helper))
+                .customLoader((builder, helper) -> new CableLoaderBuilder(CableModelLoader.GENERATOR_LOADER, builder, helper, "energy"))
                 .end();
         simpleBlock(Registration.CABLE_BLOCK.get(), model);
     }
@@ -116,7 +113,7 @@ public class MykullBlockState extends BlockStateProvider {
         registerFuelRod();
 
         registerGenerator();
-        registerCable();
+        registerEnergyCable();
 
     }
 
@@ -124,13 +121,18 @@ public class MykullBlockState extends BlockStateProvider {
 
     public static class CableLoaderBuilder extends CustomLoaderBuilder<BlockModelBuilder> {
 
-        public CableLoaderBuilder(ResourceLocation loader, BlockModelBuilder parent, ExistingFileHelper existingFileHelper) {
+        private final String type;
+
+        public CableLoaderBuilder(ResourceLocation loader, BlockModelBuilder parent, ExistingFileHelper existingFileHelper, String type) {
             super(loader, parent, existingFileHelper, false);
+            this.type = type;
         }
 
         @Override
         public JsonObject toJson(JsonObject json) {
             JsonObject obj = super.toJson(json);
+
+            obj.addProperty("type", type);
             return obj;
         }
     }
