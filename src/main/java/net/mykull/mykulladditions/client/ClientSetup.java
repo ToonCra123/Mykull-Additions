@@ -6,6 +6,7 @@ import net.mykull.mykulladditions.client.blockentityrenderer.CableBlockEntityRen
 import net.mykull.mykulladditions.client.blockentityrenderer.ComplexBlockEntityRenderer;
 import net.mykull.mykulladditions.client.screen.GeneratorScreen;
 import net.mykull.mykulladditions.common.cables.client.CableModelLoader;
+import net.mykull.mykulladditions.multiblocks.reactor.glass.ReactorGlassModelLoader;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -27,6 +28,7 @@ public class ClientSetup {
     @SubscribeEvent
     public static void modelInit(ModelEvent.RegisterGeometryLoaders event) {
         CableModelLoader.register(event);
+        ReactorGlassModelLoader.register(event);
     }
 
     @SubscribeEvent

@@ -50,6 +50,7 @@ public class Registration {
     public static final DeferredBlock<GeneratorBlock> GENERATOR_BLOCK = BLOCKS.registerBlock("generator_block", GeneratorBlock::new, BlockBehaviour.Properties.of().strength(3.5f).requiresCorrectToolForDrops().sound(SoundType.METAL));
     public static final DeferredBlock<CableBlock> CABLE_BLOCK = BLOCKS.registerBlock("cable_block", CableBlock::new, BlockBehaviour.Properties.of().strength(3.5f).requiresCorrectToolForDrops().sound(SoundType.METAL));
     public static final DeferredBlock<ReactorCasingBlock> REACTOR_CASING = BLOCKS.registerBlock("reactor_casing", ReactorCasingBlock::new, BlockBehaviour.Properties.of().strength(3.5f).requiresCorrectToolForDrops().sound(SoundType.METAL));
+    public static final DeferredBlock<ReactorGlassBlock> REACTOR_GLASS = BLOCKS.registerBlock("reactor_glass", ReactorGlassBlock::new, BlockBehaviour.Properties.of().strength(3.5f).requiresCorrectToolForDrops().sound(SoundType.GLASS));
     public static final DeferredBlock<ReactorControllerBlock> REACTOR_CONTROLLER = BLOCKS.registerBlock("reactor_controller", ReactorControllerBlock::new, BlockBehaviour.Properties.of().strength(3.5f).requiresCorrectToolForDrops().sound(SoundType.METAL));
     public static final DeferredBlock<ControlRodBlock> REACTOR_CONTROL_ROD = BLOCKS.registerBlock("reactor_control_rod", ControlRodBlock::new, BlockBehaviour.Properties.of().strength(3.5f).requiresCorrectToolForDrops().sound(SoundType.METAL));
     public static final DeferredBlock<FuelRodBlock> REACTOR_FUEL_ROD = BLOCKS.registerBlock("reactor_fuel_rod", FuelRodBlock::new, BlockBehaviour.Properties.of().strength(3.5f).requiresCorrectToolForDrops().sound(SoundType.METAL));
@@ -75,6 +76,10 @@ public class Registration {
             () -> new BlockItem(REACTOR_CONTROLLER.get(), new Item.Properties()));
     public static final DeferredItem<BlockItem> REACTOR_FUEL_ROD_ITEM = ITEMS.register("reactor_fuel_rod",
             () -> new BlockItem(REACTOR_FUEL_ROD.get(), new Item.Properties()));
+    public static final DeferredItem<BlockItem> REACTOR_GLASS_ITEM = ITEMS.register("reactor_glass",
+            () -> new BlockItem(REACTOR_GLASS.get(), new Item.Properties()));
+
+
 
 
     // Block Entities
@@ -127,6 +132,8 @@ public class Registration {
                 output.accept(REACTOR_CASING_ITEM.get());
                 output.accept(REACTOR_CONTROLLER_ITEM.get());
                 output.accept(REACTOR_CONTROL_ROD_ITEM.get());
+                output.accept(REACTOR_FUEL_ROD_ITEM.get());
+                output.accept(REACTOR_GLASS_ITEM.get());
             }).build());
 
     // ATTACHMENTS

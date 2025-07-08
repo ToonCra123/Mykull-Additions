@@ -7,7 +7,7 @@ import java.util.Map;
 
 import static net.mykull.mykulladditions.common.cables.ConnectorType.NONE;
 
-public class CablePatterns {
+public class ConnectedPatterns {
 
     // This map takes a pattern of four directions (excluding the one we are looking at) and returns the sprite index
     // and rotation for the quad that we are looking at.

@@ -1,4 +1,4 @@
-// 1.21.1	2025-07-07T16:42:55.7762271	Item Models: mykullsadditions
+// 1.21.1	2025-07-07T18:34:12.9077607	Item Models: mykullsadditions
 8747a2a0166c5f7bccd8f6eeef18ce697923dd97 assets/mykullsadditions/models/item/cable_block.json
 b1beca895ee9e204cfab61543d660a2af4c660e9 assets/mykullsadditions/models/item/complex_block.json
 6d628e214bd3b177398bb9ce11d560938548be6a assets/mykullsadditions/models/item/generator_block.json
@@ -6,6 +6,7 @@ d824dd2afc6a2225cdeecacb5fa058a4e2ec562b assets/mykullsadditions/models/item/raw
 f1901c63c224e853d3cb931fc2be6ef4d02ed993 assets/mykullsadditions/models/item/reactor_controller.json
 d7d5bb343a8edfbca9bd935256456e796e3071f7 assets/mykullsadditions/models/item/reactor_control_rod.json
 a51eb831ada1d17e70dfcd91afb9accd027475ca assets/mykullsadditions/models/item/reactor_fuel_rod.json
+f93a3ab2a783e0e26d2f47a2d779b9da0ae25c03 assets/mykullsadditions/models/item/reactor_glass.json
 1a329d3c32c872274b958cbb77ac1f37ccd4c723 assets/mykullsadditions/models/item/simple_block.json
 457aacfb4f882441fff75d558187b40fa2a32d33 assets/mykullsadditions/models/item/uranium_ingot.json
 ff828fc528546bd32fdd93ae13a92442a41f6fc0 assets/mykullsadditions/models/item/uranium_ore.json

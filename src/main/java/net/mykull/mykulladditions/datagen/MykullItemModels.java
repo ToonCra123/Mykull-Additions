@@ -42,6 +42,8 @@ public class MykullItemModels extends ItemModelProvider {
                     .end()
                 .end(); // close transforms
 
+        withExistingParent(Registration.REACTOR_GLASS.getId().getPath(), modLoc("block/reactor_glass"));
+
         withExistingParent(Registration.REACTOR_CONTROLLER.getId().getPath(), modLoc("block/reactor_controller"));
         withExistingParent(Registration.REACTOR_CONTROL_ROD.getId().getPath(), modLoc("block/reactor_control_rod"));
         withExistingParent(Registration.REACTOR_FUEL_ROD.getId().getPath(), modLoc("block/reactor_fuel_rod"));

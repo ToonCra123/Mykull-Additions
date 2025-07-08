@@ -10,6 +10,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.mykull.mykulladditions.MykullsAdditions;
 import net.mykull.mykulladditions.Registration;
 import net.mykull.mykulladditions.common.cables.client.CableModelLoader;
+import net.mykull.mykulladditions.multiblocks.reactor.glass.ReactorGlassModelLoader;
 import net.neoforged.neoforge.client.model.generators.*;
 import net.neoforged.neoforge.client.model.generators.BlockModelBuilder;
 import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
@@ -100,6 +101,13 @@ public class MykullBlockState extends BlockStateProvider {
         simpleBlock(Registration.CABLE_BLOCK.get(), model);
     }
 
+    private void registerReactorGlass() {
+        BlockModelBuilder model = models().getBuilder("reactor_glass")
+                .customLoader((builder, helper) -> new GlassLoaderBuilder(ReactorGlassModelLoader.GENERATOR_LOADER, builder, helper))
+                .end();
+        simpleBlock(Registration.REACTOR_GLASS.get(), model);
+    }
+
 
     @Override
     protected void registerStatesAndModels() {
@@ -114,6 +122,7 @@ public class MykullBlockState extends BlockStateProvider {
 
         registerGenerator();
         registerEnergyCable();
+        registerReactorGlass();
 
     }
 
@@ -134,6 +143,19 @@ public class MykullBlockState extends BlockStateProvider {
 
             obj.addProperty("type", type);
             return obj;
+        }
+    }
+
+    public static class GlassLoaderBuilder extends CustomLoaderBuilder<BlockModelBuilder> {
+
+
+        public GlassLoaderBuilder(ResourceLocation loader, BlockModelBuilder parent, ExistingFileHelper existingFileHelper) {
+            super(loader, parent, existingFileHelper, false);
+        }
+
+        @Override
+        public JsonObject toJson(JsonObject json) {
+            return super.toJson(json);
         }
     }
 }
