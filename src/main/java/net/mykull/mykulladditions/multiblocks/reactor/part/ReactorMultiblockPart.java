@@ -7,6 +7,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.mykull.lib.multiblock.MultiblockController;
 import net.mykull.mykulladditions.multiblocks.reactor.ReactorMBController;
+import net.mykull.mykulladditions.multiblocks.reactor.ReactorMBLogic;
 
 import java.util.Comparator;
 import java.util.HashSet;
@@ -28,7 +29,7 @@ public abstract class ReactorMultiblockPart extends BlockEntity implements IReac
         super.onLoad();
     }
 
-    private void tryAttachMultiblock() {
+    protected void tryAttachMultiblock() {
         if (reactorController != null) return;
 
         Set<ReactorMBController> foundControllers = new HashSet<>();

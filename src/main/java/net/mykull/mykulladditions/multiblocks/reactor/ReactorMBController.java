@@ -43,6 +43,37 @@ public class ReactorMBController extends MultiblockController {
         return parts.size();
     }
 
+    private static int maxWidth = 0;
+    private static int maxDepth = 0;
+    private static int maxHeight = 0;
+
+    private int getMaxWidth() {
+        if (maxWidth == 0) {
+            int max = MykullsAdditions.CONFIG.get().reactorSize.maxWidth;
+            if (max < 3) max = 16;
+            maxWidth = max;
+        }
+        return maxWidth;
+    }
+
+    private int getMaxDepth() {
+        if (maxDepth == 0) {
+            int max = MykullsAdditions.CONFIG.get().reactorSize.maxDepth;
+            if (max < 3) max = 16;
+            maxDepth = max;
+        }
+        return maxDepth;
+    }
+
+    private int getMaxHeight() {
+        if (maxHeight == 0) {
+            int max = MykullsAdditions.CONFIG.get().reactorSize.maxHeight;
+            if (max < 3) max = 16;
+            maxHeight = max;
+        }
+        return maxHeight;
+    }
+
     private void updateBlockStatesUnformed() {
         for (BlockPos pos : casingList) {
             BlockState currentState = world.getBlockState(pos);
@@ -105,6 +136,9 @@ public class ReactorMBController extends MultiblockController {
         }
     }
 
+    public void setLogic(ReactorMBLogic logic) {
+        this.logic = logic;
+    }
 
     @Override
     public boolean isMachineWhole() {
@@ -115,7 +149,7 @@ public class ReactorMBController extends MultiblockController {
 
         // Checks for size restraints, going to change to config
         if (getWidth() < 3 || getDepth() < 3 || getHeight() < 3) return false;
-        if (getWidth() > 16 || getDepth() > 16 || getHeight() > 16) return false;
+        if (getWidth() > getMaxWidth() || getDepth() > getMaxDepth() || getHeight() > getMaxHeight()) return false;
 
 
         // Check Frame

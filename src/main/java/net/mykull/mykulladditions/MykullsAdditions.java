@@ -1,5 +1,6 @@
 package net.mykull.mykulladditions;
 
+import net.mykull.lib.config.JsonConfig;
 import net.mykull.mykulladditions.compat.TOP.TopCompatibility;
 import net.mykull.mykulladditions.datagen.DataGeneration;
 import net.mykull.mykulladditions.events.PlayerRadiationEvent;
@@ -21,7 +22,13 @@ import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 @Mod(MykullsAdditions.MODID)
 public class MykullsAdditions {
     public static final String MODID = "mykullsadditions";
+
     public static final Logger LOGGER = LogUtils.getLogger();
+
+    public static final JsonConfig<ConfigModel> CONFIG = new JsonConfig<>(
+            "mykulls_config.json",
+            ConfigModel.class
+    );
 
     public MykullsAdditions(IEventBus modEventBus, ModContainer modContainer) {
         // Loads Blocks, Items, BE and Creative Tabs
@@ -42,8 +49,8 @@ public class MykullsAdditions {
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
-        LOGGER.info("HELLO FROM COMMON SETUP");
         TopCompatibility.register();
+        CONFIG.load();
     }
 
 
