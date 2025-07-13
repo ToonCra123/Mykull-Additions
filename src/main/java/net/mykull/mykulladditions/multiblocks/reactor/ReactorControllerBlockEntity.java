@@ -10,7 +10,7 @@ import net.mykull.mykulladditions.multiblocks.reactor.part.ReactorPartTypes;
 
 public class ReactorControllerBlockEntity extends ReactorMultiblockPart {
 
-    public ReactorMBLogic loadedLogic;
+    public ReactorMBLogic loadedLogic = null;
 
     public ReactorControllerBlockEntity(BlockPos pos, BlockState blockState) {
         super(Registration.REACTOR_CONTROLLER_ENTITY.get(), pos, blockState);
@@ -34,6 +34,11 @@ public class ReactorControllerBlockEntity extends ReactorMultiblockPart {
     @Override
     protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.loadAdditional(tag, registries);
+        if(loadedLogic == null) {
+            ReactorMBLogic logic = new ReactorMBLogic(null);
+            logic.loadAdditional(tag, registries);
+            this.loadedLogic = logic;
+        }
     }
 
     @Override
@@ -47,8 +52,10 @@ public class ReactorControllerBlockEntity extends ReactorMultiblockPart {
     @Override
     protected void tryAttachMultiblock() {
         super.tryAttachMultiblock();
-        if(this.reactorController != null) {
+
+        if (this.reactorController != null && loadedLogic != null) {
             this.reactorController.setLogic(loadedLogic);
+            loadedLogic.controller = this.reactorController;
         }
     }
 }
