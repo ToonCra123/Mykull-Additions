@@ -27,6 +27,7 @@ public class ReactorControllerBlockEntity extends ReactorMultiblockPart {
         if (reactorController.logic == null) return;
 
         reactorController.logic.tick();
+        setChanged();
     }
 
 
@@ -44,8 +45,8 @@ public class ReactorControllerBlockEntity extends ReactorMultiblockPart {
     @Override
     protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.saveAdditional(tag, registries);
-        if (reactorController != null && reactorController.logic != null) {
-            reactorController.logic.saveAdditional(tag, registries);
+        if (loadedLogic != null) {
+            loadedLogic.saveAdditional(tag, registries);
         }
     }
 

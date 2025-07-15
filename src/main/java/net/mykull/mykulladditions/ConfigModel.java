@@ -8,4 +8,9 @@ public class ConfigModel {
         public int maxHeight = 16;
         public int maxDepth = 16;
     }
+
+    public static class ReactorCommon {
+        public double reactorFEConversionFactor = 10.0;
+        public double reactorSteamConversionFactor = 30.0;
+    }
 }

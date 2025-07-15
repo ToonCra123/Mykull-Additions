@@ -28,6 +28,9 @@ public class ReactorMBController extends MultiblockController {
     private final Set<BlockPos> casingList = new HashSet<>();
     private final Set<BlockPos> controlRodList = new HashSet<>();
     private final Set<BlockPos> fuelRodList = new HashSet<>();
+    private final Set<BlockPos> powerTapList = new HashSet<>();
+    private final Set<BlockPos> fuelIOList = new HashSet<>();
+
 
     // Two posit
     private BlockPos bottomLeftBB = null;
@@ -186,7 +189,7 @@ public class ReactorMBController extends MultiblockController {
                                 return false;
                             }
                         } else {
-                            if(!casingList.contains(pos) && !controllerList.contains(pos)) {
+                            if(!casingList.contains(pos) && !controllerList.contains(pos) && !powerTapList.contains(pos) && !fuelIOList.contains(pos)) {
                                 return false;
                             }
                         }
@@ -269,6 +272,8 @@ public class ReactorMBController extends MultiblockController {
             case CASING -> casingList.add(part.getWorldPosition());
             case CONTROL_ROD -> controlRodList.add(part.getWorldPosition());
             case FUEL_ROD -> fuelRodList.add(part.getWorldPosition());
+            case POWER_TAP -> powerTapList.add(part.getWorldPosition());
+            case FUEL_IO -> fuelIOList.add(part.getWorldPosition());
         }
 
         // IDK this may be a bad thinng to add
@@ -276,11 +281,16 @@ public class ReactorMBController extends MultiblockController {
 
         if(formed) {
             updateBlockStatesFormed();
+            if (this.logic != null) this.logic.initFuel(this.fuelRodList.size(), getModeratorsEfficiency());
         } else {
             updateBlockStatesUnformed();
         }
 
         super.onBlockAdded(part);
+    }
+
+    private double getModeratorsEfficiency() {
+        return 1.0;
     }
 
     @Override
@@ -292,6 +302,8 @@ public class ReactorMBController extends MultiblockController {
             case CASING -> casingList.remove(part.getWorldPosition());
             case CONTROL_ROD -> controlRodList.remove(part.getWorldPosition());
             case FUEL_ROD -> fuelRodList.remove(part.getWorldPosition());
+            case POWER_TAP -> powerTapList.remove(part.getWorldPosition());
+            case FUEL_IO -> fuelIOList.remove(part.getWorldPosition());
         }
         recalculateBoundingBox();
         formed = isMachineWhole();

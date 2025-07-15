@@ -20,6 +20,11 @@ import net.mykull.mykulladditions.common.cables.blocks.CableBlock;
 import net.mykull.mykulladditions.common.containers.GeneratorContainer;
 import net.mykull.mykulladditions.common.items.RadioactiveItem;
 import net.mykull.mykulladditions.multiblocks.reactor.*;
+import net.mykull.mykulladditions.multiblocks.reactor.client.FuelInputContainer;
+import net.mykull.mykulladditions.multiblocks.reactor.io.FuelIOBlock;
+import net.mykull.mykulladditions.multiblocks.reactor.io.FuelIOBlockEntity;
+import net.mykull.mykulladditions.multiblocks.reactor.io.PowerTapBlock;
+import net.mykull.mykulladditions.multiblocks.reactor.io.PowerTapBlockEntity;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.attachment.AttachmentType;
 import net.neoforged.neoforge.common.extensions.IMenuTypeExtension;
@@ -50,10 +55,12 @@ public class Registration {
     public static final DeferredBlock<GeneratorBlock> GENERATOR_BLOCK = BLOCKS.registerBlock("generator_block", GeneratorBlock::new, BlockBehaviour.Properties.of().strength(3.5f).requiresCorrectToolForDrops().sound(SoundType.METAL));
     public static final DeferredBlock<CableBlock> CABLE_BLOCK = BLOCKS.registerBlock("cable_block", CableBlock::new, BlockBehaviour.Properties.of().strength(3.5f).requiresCorrectToolForDrops().sound(SoundType.METAL));
     public static final DeferredBlock<ReactorCasingBlock> REACTOR_CASING = BLOCKS.registerBlock("reactor_casing", ReactorCasingBlock::new, BlockBehaviour.Properties.of().strength(3.5f).requiresCorrectToolForDrops().sound(SoundType.METAL));
-    public static final DeferredBlock<ReactorGlassBlock> REACTOR_GLASS = BLOCKS.registerBlock("reactor_glass", ReactorGlassBlock::new, BlockBehaviour.Properties.of().strength(3.5f).requiresCorrectToolForDrops().sound(SoundType.GLASS));
     public static final DeferredBlock<ReactorControllerBlock> REACTOR_CONTROLLER = BLOCKS.registerBlock("reactor_controller", ReactorControllerBlock::new, BlockBehaviour.Properties.of().strength(3.5f).requiresCorrectToolForDrops().sound(SoundType.METAL));
     public static final DeferredBlock<ControlRodBlock> REACTOR_CONTROL_ROD = BLOCKS.registerBlock("reactor_control_rod", ControlRodBlock::new, BlockBehaviour.Properties.of().strength(3.5f).requiresCorrectToolForDrops().sound(SoundType.METAL));
     public static final DeferredBlock<FuelRodBlock> REACTOR_FUEL_ROD = BLOCKS.registerBlock("reactor_fuel_rod", FuelRodBlock::new, BlockBehaviour.Properties.of().strength(3.5f).requiresCorrectToolForDrops().sound(SoundType.METAL));
+    public static final DeferredBlock<PowerTapBlock> REACTOR_POWER_TAP = BLOCKS.registerBlock("reactor_power_tap", PowerTapBlock::new, BlockBehaviour.Properties.of().strength(3.5f).requiresCorrectToolForDrops().sound(SoundType.METAL));
+    public static final DeferredBlock<FuelIOBlock> REACTOR_FUEL_IO = BLOCKS.registerBlock("reactor_fuel_io", FuelIOBlock::new, BlockBehaviour.Properties.of().strength(3.5f).requiresCorrectToolForDrops().sound(SoundType.METAL));
+
 
 
     // Block Items
@@ -76,8 +83,10 @@ public class Registration {
             () -> new BlockItem(REACTOR_CONTROLLER.get(), new Item.Properties()));
     public static final DeferredItem<BlockItem> REACTOR_FUEL_ROD_ITEM = ITEMS.register("reactor_fuel_rod",
             () -> new BlockItem(REACTOR_FUEL_ROD.get(), new Item.Properties()));
-    public static final DeferredItem<BlockItem> REACTOR_GLASS_ITEM = ITEMS.register("reactor_glass",
-            () -> new BlockItem(REACTOR_GLASS.get(), new Item.Properties()));
+    public static final DeferredItem<BlockItem> REACTOR_POWER_TAP_ITEM = ITEMS.register("reactor_power_tap",
+            () -> new BlockItem(REACTOR_POWER_TAP.get(), new Item.Properties()));
+    public static final DeferredItem<BlockItem> REACTOR_FUEL_IO_ITEM = ITEMS.register("reactor_fuel_io",
+            () -> new BlockItem(REACTOR_FUEL_IO.get(), new Item.Properties()));
 
 
 
@@ -97,11 +106,17 @@ public class Registration {
             () -> BlockEntityType.Builder.of(ControlRodBlockEntity::new, REACTOR_CONTROL_ROD.get()).build(null));
     public static final Supplier<BlockEntityType<FuelRodBlockEntity>> REACTOR_FUEL_ROD_ENTITY = BLOCK_ENTITIES.register("reactor_fuel_rod_block_entity",
             () -> BlockEntityType.Builder.of(FuelRodBlockEntity::new, REACTOR_FUEL_ROD.get()).build(null));
+    public static final Supplier<BlockEntityType<PowerTapBlockEntity>> REACTOR_POWER_TAP_ENTITY = BLOCK_ENTITIES.register("reactor_power_tap_block_entity",
+            () -> BlockEntityType.Builder.of(PowerTapBlockEntity::new, REACTOR_POWER_TAP.get()).build(null));
+    public static final Supplier<BlockEntityType<FuelIOBlockEntity>> REACTOR_FUEL_IO_ENTITY = BLOCK_ENTITIES.register("reactor_fuel_io_block_entity",
+            () -> BlockEntityType.Builder.of(FuelIOBlockEntity::new, REACTOR_FUEL_IO.get()).build(null));
 
 
     //menus
     public static final Supplier<MenuType<GeneratorContainer>> GENERATOR_CONTAINER = MENU_TYPES.register("generator_block",
             () -> IMenuTypeExtension.create((windowId, inv, data) -> new GeneratorContainer(windowId, inv.player, data.readBlockPos())));
+    public static final Supplier<MenuType<FuelInputContainer>> REACTOR_FUEL_CONTAINER = MENU_TYPES.register("reactor_fuel_io",
+            () -> IMenuTypeExtension.create((windowId, inv, data) -> new FuelInputContainer(windowId, inv.player, data.readBlockPos())));
 
 
     // Items
@@ -110,6 +125,8 @@ public class Registration {
     public static final DeferredItem<RadioactiveItem> RAW_URANIUM = ITEMS.register("raw_uranium",
             () -> new RadioactiveItem(new Item.Properties(), 1));
     public static final DeferredItem<RadioactiveItem> URANIUM_INGOT = ITEMS.register("uranium_ingot",
+            () -> new RadioactiveItem(new Item.Properties(), 2));
+    public static final DeferredItem<RadioactiveItem> LEU_PELLET = ITEMS.register("leu_fuel_pellet",
             () -> new RadioactiveItem(new Item.Properties(), 2));
 
     // Creative Tab
@@ -127,13 +144,15 @@ public class Registration {
                 output.accept(URANIUM_ORE_ITEM.get());
                 output.accept(RAW_URANIUM.get());
                 output.accept(URANIUM_INGOT.get());
+                output.accept(LEU_PELLET.get());
 
                 //Reactor
                 output.accept(REACTOR_CASING_ITEM.get());
                 output.accept(REACTOR_CONTROLLER_ITEM.get());
                 output.accept(REACTOR_CONTROL_ROD_ITEM.get());
                 output.accept(REACTOR_FUEL_ROD_ITEM.get());
-                output.accept(REACTOR_GLASS_ITEM.get());
+                output.accept(REACTOR_POWER_TAP_ITEM.get());
+                output.accept(REACTOR_FUEL_IO_ITEM.get());
             }).build());
 
     // ATTACHMENTS

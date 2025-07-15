@@ -6,20 +6,22 @@ package net.mykull.mykulladditions.multiblocks.reactor;
 // Mykull
 public interface IHeat {
      /// @return amount of heat
-    int getHeat();
+    double getHeat();
 
     /// @return maximum heat (like explosion amount or sum IDK)
-    int getMaxHeat();
+    double getMaxHeat();
 
     /**
      * @param heat amount of heat to be added
      * @return the amount of heat added
      */
-    int addHeat(int heat);
+    double addHeat(double heat);
 
     /**
      * @param heat amount of heat wanting to be removed
      * @return the amount of heat actually removed
      */
-    int removeHeat(int heat);
+    double removeHeat(double heat);
+
+    void decay(double coolingRate);
 }

@@ -32,6 +32,8 @@ public class MykullBlockState extends BlockStateProvider {
     public static final ResourceLocation FUEL_ROD_TOP = ResourceLocation.fromNamespaceAndPath(MykullsAdditions.MODID, "block/reactor/fuel_rod_top");
     public static final ResourceLocation FUEL_ROD_SIDE = ResourceLocation.fromNamespaceAndPath(MykullsAdditions.MODID, "block/reactor/fuel_rod_side");
 
+    public static final ResourceLocation POWER_TAP = ResourceLocation.fromNamespaceAndPath(MykullsAdditions.MODID, "block/reactor/energy_tap");
+
     public MykullBlockState(PackOutput output, ExistingFileHelper exFileHelper) {
         super(output, MykullsAdditions.MODID, exFileHelper);
     }
@@ -101,13 +103,6 @@ public class MykullBlockState extends BlockStateProvider {
         simpleBlock(Registration.CABLE_BLOCK.get(), model);
     }
 
-    private void registerReactorGlass() {
-        BlockModelBuilder model = models().getBuilder("reactor_glass")
-                .customLoader((builder, helper) -> new GlassLoaderBuilder(ReactorGlassModelLoader.GENERATOR_LOADER, builder, helper))
-                .end();
-        simpleBlock(Registration.REACTOR_GLASS.get(), model);
-    }
-
 
     @Override
     protected void registerStatesAndModels() {
@@ -117,13 +112,12 @@ public class MykullBlockState extends BlockStateProvider {
 
 
         simpleBlock(Registration.REACTOR_CONTROLLER.get());
+        simpleBlock(Registration.REACTOR_POWER_TAP.get(), models().cubeAll("reactor_energy_tap", POWER_TAP));
         registerControlRod();
         registerFuelRod();
 
         registerGenerator();
         registerEnergyCable();
-        registerReactorGlass();
-
     }
 
 

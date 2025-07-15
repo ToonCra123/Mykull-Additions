@@ -36,7 +36,7 @@ public class GeneratorBlockEntity extends BlockEntity {
     private ItemStackHandler items = createItemHandler();
     private Lazy<IItemHandler> itemHandler = Lazy.of(() -> items);
 
-    private final EnergyStorage energy = createEnergyStorage();
+    public final EnergyStorage energy = createEnergyStorage();
     private final Lazy<IEnergyStorage> energyHandler = Lazy.of(() -> new AdaptedEnergyStorage(energy) {
         @Override
         public int receiveEnergy(int maxReceive, boolean simulate) {

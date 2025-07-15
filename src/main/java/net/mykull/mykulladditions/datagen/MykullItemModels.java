@@ -1,6 +1,7 @@
 package net.mykull.mykulladditions.datagen;
 
 import net.minecraft.data.PackOutput;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.mykull.mykulladditions.MykullsAdditions;
 import net.mykull.mykulladditions.Registration;
@@ -41,13 +42,12 @@ public class MykullItemModels extends ItemModelProvider {
                     .scale(0.4f)
                     .end()
                 .end(); // close transforms
-
-        withExistingParent(Registration.REACTOR_GLASS.getId().getPath(), modLoc("block/reactor_glass"));
-
         withExistingParent(Registration.REACTOR_CONTROLLER.getId().getPath(), modLoc("block/reactor_controller"));
         withExistingParent(Registration.REACTOR_CONTROL_ROD.getId().getPath(), modLoc("block/reactor_control_rod"));
         withExistingParent(Registration.REACTOR_FUEL_ROD.getId().getPath(), modLoc("block/reactor_fuel_rod"));
+        withExistingParent(Registration.REACTOR_POWER_TAP.getId().getPath(), modLoc("block/reactor_energy_tap"));
         basicItem(Registration.RAW_URANIUM.get());
         basicItem(Registration.URANIUM_INGOT.get());
+        basicItem(Registration.LEU_PELLET.get()).texture("layer0", ResourceLocation.fromNamespaceAndPath(MykullsAdditions.MODID, "item/leu_fuel_pellet"));
     }
 }

@@ -6,6 +6,8 @@ import net.mykull.mykulladditions.client.blockentityrenderer.CableBlockEntityRen
 import net.mykull.mykulladditions.client.blockentityrenderer.ComplexBlockEntityRenderer;
 import net.mykull.mykulladditions.client.screen.GeneratorScreen;
 import net.mykull.mykulladditions.common.cables.client.CableModelLoader;
+import net.mykull.mykulladditions.multiblocks.reactor.client.FuelInputContainer;
+import net.mykull.mykulladditions.multiblocks.reactor.client.FuelInputGUI;
 import net.mykull.mykulladditions.multiblocks.reactor.glass.ReactorGlassModelLoader;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -23,6 +25,7 @@ public class ClientSetup {
     @SubscribeEvent
     public static void onRegisterMenuScreens(RegisterMenuScreensEvent event) {
         event.register(Registration.GENERATOR_CONTAINER.get(), GeneratorScreen::new);
+        event.register(Registration.REACTOR_FUEL_CONTAINER.get(), FuelInputGUI::new);
     }
 
     @SubscribeEvent

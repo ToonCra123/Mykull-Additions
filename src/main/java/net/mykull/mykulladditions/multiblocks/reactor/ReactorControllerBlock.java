@@ -49,11 +49,16 @@ public class ReactorControllerBlock extends Block implements EntityBlock {
 
             if(be instanceof ReactorMultiblockPart reactor) {
                 if (reactor.getController() instanceof ReactorMBController r) {
-                    MykullsAdditions.LOGGER.debug("Size of multiblock Width: {} Depth: {} Height: {}", r.getWidth(), r.getDepth(), r.getHeight());
                     MykullsAdditions.LOGGER.debug("Formed State: {}", r.formed);
+                    if (r.logic != null && r.formed) {
+                        MykullsAdditions.LOGGER.debug("Energy: {}", r.logic.getEnergyStorage().getEnergyStored());
+                        MykullsAdditions.LOGGER.debug("Heat: {}", r.logic.getHeat().getHeat());
+                        MykullsAdditions.LOGGER.debug("Fuel: {}", r.logic.getFuel().getFuel());
+                        MykullsAdditions.LOGGER.debug("Waste: {}", r.logic.getFuel().getWaste());
+                    }
                 }
             }
         }
-        return super.useWithoutItem(state, level, pos, player, hitResult);
+        return InteractionResult.SUCCESS;
     }
 }
