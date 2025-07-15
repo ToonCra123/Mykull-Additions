@@ -30,7 +30,7 @@ public class FuelInputContainer extends AbstractContainerMenu {
         this.pos = pos;
         if (player.level().getBlockEntity(pos) instanceof FuelIOBlockEntity be) {
             addSlot(new SlotItemHandler(be.getItems(), INPUT_SLOT, 28, 27));
-            addSlot(new SlotItemHandler(be.getItems(), OUTPUT_SLOT, 83, 27));
+            addSlot(new SlotItemHandler(be.getItems(), OUTPUT_SLOT, 82, 27));
         }
         layoutPlayerInventorySlots(player.getInventory(), 10, 70);
     }
