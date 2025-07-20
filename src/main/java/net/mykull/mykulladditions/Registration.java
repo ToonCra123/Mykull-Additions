@@ -21,6 +21,8 @@ import net.mykull.mykulladditions.common.containers.GeneratorContainer;
 import net.mykull.mykulladditions.common.items.RadioactiveItem;
 import net.mykull.mykulladditions.multiblocks.reactor.*;
 import net.mykull.mykulladditions.multiblocks.reactor.client.FuelInputContainer;
+import net.mykull.mykulladditions.multiblocks.reactor.client.MainReactorContainer;
+import net.mykull.mykulladditions.multiblocks.reactor.client.MainReactorGUI;
 import net.mykull.mykulladditions.multiblocks.reactor.io.FuelIOBlock;
 import net.mykull.mykulladditions.multiblocks.reactor.io.FuelIOBlockEntity;
 import net.mykull.mykulladditions.multiblocks.reactor.io.PowerTapBlock;
@@ -117,6 +119,8 @@ public class Registration {
             () -> IMenuTypeExtension.create((windowId, inv, data) -> new GeneratorContainer(windowId, inv.player, data.readBlockPos())));
     public static final Supplier<MenuType<FuelInputContainer>> REACTOR_FUEL_CONTAINER = MENU_TYPES.register("reactor_fuel_io",
             () -> IMenuTypeExtension.create((windowId, inv, data) -> new FuelInputContainer(windowId, inv.player, data.readBlockPos())));
+    public static final Supplier<MenuType<MainReactorContainer>> REACTOR_MAIN_CONTAINER = MENU_TYPES.register("reactor_main",
+            () -> IMenuTypeExtension.create((windowId, inv, data) -> new MainReactorContainer(windowId, inv.player, data.readBlockPos())));
 
 
     // Items
@@ -127,6 +131,8 @@ public class Registration {
     public static final DeferredItem<RadioactiveItem> URANIUM_INGOT = ITEMS.register("uranium_ingot",
             () -> new RadioactiveItem(new Item.Properties(), 2));
     public static final DeferredItem<RadioactiveItem> LEU_PELLET = ITEMS.register("leu_fuel_pellet",
+            () -> new RadioactiveItem(new Item.Properties(), 2));
+    public static final DeferredItem<RadioactiveItem> DEPLETED_LEU_PELLET = ITEMS.register("depleted_leu_fuel_pellet",
             () -> new RadioactiveItem(new Item.Properties(), 2));
 
     // Creative Tab
@@ -145,6 +151,7 @@ public class Registration {
                 output.accept(RAW_URANIUM.get());
                 output.accept(URANIUM_INGOT.get());
                 output.accept(LEU_PELLET.get());
+                output.accept(DEPLETED_LEU_PELLET.get());
 
                 //Reactor
                 output.accept(REACTOR_CASING_ITEM.get());

@@ -30,6 +30,10 @@ public class ReactorControllerBlockEntity extends ReactorMultiblockPart {
         setChanged();
     }
 
+    public boolean shouldGUI() {
+        return reactorController.formed;
+    }
+
 
 
     @Override
